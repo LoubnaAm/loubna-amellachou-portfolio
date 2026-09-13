@@ -1,428 +1,1774 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loubna Amellachou — Data Science &amp; IA</title>
+
+<title>Loubna Amellachou | Data Science · Big Data · AI</title>
+
+<meta name="description"
+      content="Loubna Amellachou — Engineering Student in Big Data, Data Science and Artificial Intelligence.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+
 <style>
-  :root{
-    --paper:#EDEEE7;
-    --paper-2:#E4E5DC;
-    --line:#CFD0C3;
-    --ink:#1B2430;
-    --ink-soft:#57616F;
-    --signal:#2F6F5E;
-    --signal-deep:#1F4D40;
-    --signal-wash:#DCEAE4;
-    --alert:#B4732E;
-    --alert-wash:#F1E3D2;
-    --margin:88px;
-  }
-  @media (max-width:720px){ :root{ --margin:28px; } }
 
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{
+:root{
+    --bg:#070b12;
+    --bg2:#0b111b;
+    --card:#0e1622;
+    --card2:#111c2b;
+
+    --text:#f3f7fb;
+    --muted:#8d9aaa;
+
+    --primary:#62e6b7;
+    --secondary:#67a8ff;
+
+    --border:rgba(255,255,255,.09);
+
+    --max:1150px;
+}
+
+*{
     margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:16px;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"DM Sans",sans-serif;
     line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  ::selection{ background:var(--signal); color:var(--paper); }
-  a{ color:inherit; }
-  :focus-visible{ outline:2px solid var(--signal); outline-offset:3px; }
+    overflow-x:hidden;
+}
 
-  .mono{ font-family:'IBM Plex Mono', monospace; }
+/* =========================
+   BACKGROUND
+========================= */
 
-  /* Notebook margin rail */
-  .rail{
+body::before{
+    content:"";
     position:fixed;
-    top:0; bottom:0; left:0;
-    width:var(--margin);
-    border-right:1px solid var(--line);
-    z-index:5;
+    width:500px;
+    height:500px;
+    background:rgba(98,230,183,.07);
+    filter:blur(120px);
+    border-radius:50%;
+    top:-200px;
+    left:-200px;
     pointer-events:none;
-  }
-  .rail::before{
+    z-index:-2;
+}
+
+body::after{
     content:"";
+    position:fixed;
+    width:450px;
+    height:450px;
+    background:rgba(103,168,255,.06);
+    filter:blur(120px);
+    border-radius:50%;
+    bottom:-180px;
+    right:-150px;
+    pointer-events:none;
+    z-index:-2;
+}
+
+/* subtle grid */
+
+.grid-bg{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-3;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+    background-size:50px 50px;
+
+    mask-image:linear-gradient(to bottom,black,transparent 90%);
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+
+    z-index:100;
+
+    backdrop-filter:blur(15px);
+    background:rgba(7,11,18,.72);
+
+    border-bottom:1px solid transparent;
+
+    transition:.3s;
+}
+
+nav.scrolled{
+    border-color:var(--border);
+}
+
+.nav-inner{
+    max-width:var(--max);
+    margin:auto;
+
+    height:72px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 25px;
+}
+
+.logo{
+    font-family:"Space Grotesk";
+    font-weight:700;
+    font-size:20px;
+}
+
+.logo span{
+    color:var(--primary);
+}
+
+.nav-links{
+    display:flex;
+    gap:28px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:var(--muted);
+    font-size:14px;
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:var(--text);
+}
+
+@media(max-width:700px){
+
+    .nav-links{
+        display:none;
+    }
+
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:100vh;
+    max-width:var(--max);
+    margin:auto;
+
+    padding:150px 25px 90px;
+
+    display:flex;
+    align-items:center;
+
+    position:relative;
+}
+
+.hero-content{
+    max-width:850px;
+}
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+
+    padding:7px 12px;
+
+    border:1px solid var(--border);
+    border-radius:30px;
+
+    background:rgba(255,255,255,.025);
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-bottom:28px;
+
+    animation:fadeUp .8s ease forwards;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+
+    background:var(--primary);
+
+    border-radius:50%;
+
+    box-shadow:0 0 12px var(--primary);
+
+    animation:pulse 1.8s infinite;
+}
+
+.hero h1{
+    font-family:"Space Grotesk";
+
+    font-size:clamp(48px,8vw,88px);
+
+    line-height:.98;
+
+    letter-spacing:-3px;
+
+    margin-bottom:25px;
+
+    animation:fadeUp .8s .1s ease both;
+}
+
+.hero h1 .gradient{
+    background:linear-gradient(90deg,var(--text),var(--primary),var(--secondary));
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero-description{
+    max-width:690px;
+
+    color:var(--muted);
+
+    font-size:18px;
+
+    margin-bottom:35px;
+
+    animation:fadeUp .8s .2s ease both;
+}
+
+.typing{
+    color:var(--primary);
+    font-family:"Space Grotesk";
+    font-weight:600;
+}
+
+.cursor{
+    animation:blink 1s infinite;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+
+    animation:fadeUp .8s .3s ease both;
+}
+
+.btn{
+    text-decoration:none;
+
+    padding:12px 20px;
+
+    border-radius:9px;
+
+    font-weight:600;
+    font-size:14px;
+
+    transition:.3s;
+
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+}
+
+.btn-primary{
+    background:var(--primary);
+    color:#06100c;
+
+    box-shadow:0 0 30px rgba(98,230,183,.15);
+}
+
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 35px rgba(98,230,183,.25);
+}
+
+.btn-outline{
+    border:1px solid var(--border);
+    color:var(--text);
+    background:rgba(255,255,255,.025);
+}
+
+.btn-outline:hover{
+    background:rgba(255,255,255,.07);
+    transform:translateY(-3px);
+}
+
+/* floating data */
+
+.data-orbit{
     position:absolute;
-    left:calc(100% - 1px);
-    top:0; bottom:0;
-    width:1px;
-    background:repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px 12px);
-    opacity:.6;
-  }
-  @media (max-width:720px){ .rail{ display:none; } }
 
-  .wrap{
-    max-width:920px;
-    margin:0 auto;
-    padding:0 32px 0 calc(var(--margin) + 40px);
-  }
-  @media (max-width:720px){ .wrap{ padding:0 22px; } }
+    right:40px;
+    top:32%;
 
-  header.hero{
-    padding:96px 0 64px;
-    border-bottom:1px solid var(--line);
-  }
-  .tick{
-    font-family:'IBM Plex Mono', monospace;
+    width:230px;
+    height:230px;
+
+    opacity:.7;
+}
+
+.orbit{
+    position:absolute;
+    inset:0;
+
+    border:1px solid rgba(98,230,183,.18);
+    border-radius:50%;
+
+    animation:rotate 14s linear infinite;
+}
+
+.orbit:nth-child(2){
+    inset:35px;
+    border-color:rgba(103,168,255,.18);
+
+    animation-direction:reverse;
+    animation-duration:10s;
+}
+
+.node{
+    position:absolute;
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    box-shadow:0 0 15px var(--primary);
+}
+
+.node:nth-child(3){
+    top:12px;
+    left:50%;
+}
+
+.node:nth-child(4){
+    bottom:25px;
+    right:10px;
+    background:var(--secondary);
+    box-shadow:0 0 15px var(--secondary);
+}
+
+.node:nth-child(5){
+    bottom:30px;
+    left:30px;
+}
+
+@media(max-width:900px){
+    .data-orbit{
+        display:none;
+    }
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+section{
+    max-width:var(--max);
+    margin:auto;
+
+    padding:100px 25px;
+}
+
+.section-label{
+    color:var(--primary);
+
+    font-family:"Space Grotesk";
+
+    font-size:13px;
+    font-weight:600;
+
+    letter-spacing:2px;
+
+    margin-bottom:10px;
+}
+
+.section-title{
+    font-family:"Space Grotesk";
+
+    font-size:clamp(30px,5vw,48px);
+
+    letter-spacing:-1.5px;
+
+    margin-bottom:45px;
+}
+
+.section-title span{
+    color:var(--muted);
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about-grid{
+    display:grid;
+
+    grid-template-columns:1.1fr .9fr;
+
+    gap:60px;
+}
+
+.about-text{
+    color:var(--muted);
+
+    font-size:17px;
+}
+
+.about-text p{
+    margin-bottom:20px;
+}
+
+.highlight{
+    color:var(--text);
+    font-weight:600;
+}
+
+.about-card{
+    border:1px solid var(--border);
+
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.045),
+        rgba(255,255,255,.015)
+    );
+
+    border-radius:18px;
+
+    padding:30px;
+}
+
+.about-card-title{
+    font-family:"Space Grotesk";
+
+    margin-bottom:25px;
+
+    color:var(--primary);
+}
+
+.about-stat{
+    display:flex;
+    justify-content:space-between;
+
+    padding:15px 0;
+
+    border-bottom:1px solid var(--border);
+
+    color:var(--muted);
+}
+
+.about-stat:last-child{
+    border-bottom:none;
+}
+
+.about-stat strong{
+    color:var(--text);
+}
+
+@media(max-width:800px){
+
+    .about-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/* =========================
+   PROJECTS
+========================= */
+
+.projects{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+}
+
+.project{
+    position:relative;
+
+    padding:28px;
+
+    min-height:330px;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.045),
+        rgba(255,255,255,.012)
+    );
+
+    overflow:hidden;
+
+    transition:.4s;
+
+    display:flex;
+    flex-direction:column;
+}
+
+.project::before{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:rgba(98,230,183,.08);
+
+    filter:blur(50px);
+
+    top:-100px;
+    right:-100px;
+
+    transition:.4s;
+}
+
+.project:hover{
+    transform:translateY(-8px);
+
+    border-color:rgba(98,230,183,.35);
+
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+
+.project:hover::before{
+    transform:scale(1.5);
+}
+
+.project-number{
+    font-family:"Space Grotesk";
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-bottom:35px;
+}
+
+.project-icon{
+    font-size:32px;
+
+    margin-bottom:20px;
+}
+
+.project h3{
+    font-family:"Space Grotesk";
+
+    font-size:23px;
+
+    margin-bottom:5px;
+}
+
+.project-subtitle{
+    color:var(--primary);
+
+    font-size:13px;
+
+    margin-bottom:15px;
+}
+
+.project p{
+    color:var(--muted);
+
+    font-size:14px;
+
+    margin-bottom:20px;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+
+    margin-top:auto;
+}
+
+.tag{
+    font-size:11px;
+
+    padding:5px 9px;
+
+    border:1px solid var(--border);
+
+    border-radius:5px;
+
+    color:var(--muted);
+
+    background:rgba(255,255,255,.025);
+}
+
+.project-link{
+    margin-top:20px;
+
+    color:var(--text);
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+.project-link:hover{
+    color:var(--primary);
+}
+
+@media(max-width:900px){
+
+    .projects{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .projects{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/* =========================
+   SKILLS
+========================= */
+
+.skills{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+}
+
+.skill-card{
+    padding:25px;
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.02);
+
+    transition:.3s;
+}
+
+.skill-card:hover{
+    transform:translateY(-5px);
+
+    border-color:rgba(98,230,183,.3);
+}
+
+.skill-card h3{
+    font-family:"Space Grotesk";
+
+    margin-bottom:20px;
+}
+
+.skill-list{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+}
+
+.skill{
+    padding:7px 10px;
+
+    background:rgba(255,255,255,.035);
+
+    border:1px solid var(--border);
+
+    border-radius:6px;
+
     font-size:12px;
-    letter-spacing:.03em;
-    color:var(--signal-deep);
-    margin:0 0 22px;
-  }
-  .tick::before{ content:"— "; color:var(--line); }
 
-  h1.name{
-    font-family:'IBM Plex Serif', serif;
-    font-weight:500;
-    font-size:clamp(38px, 7vw, 68px);
-    line-height:1.03;
-    margin:0 0 14px;
-    letter-spacing:-0.01em;
-  }
-  p.role{
-    font-size:clamp(16px, 2vw, 19px);
-    color:var(--ink-soft);
-    max-width:46ch;
-    margin:0 0 40px;
-  }
-  p.role strong{ color:var(--ink); font-weight:600; }
+    color:var(--muted);
+}
 
-  /* Pulse waveform */
-  .pulse-box{ margin:0 0 42px; }
-  svg.pulse{ width:100%; max-width:560px; height:64px; display:block; }
-  .pulse-line{
-    fill:none;
-    stroke:var(--signal);
-    stroke-width:2;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-    stroke-dasharray:900;
-    stroke-dashoffset:900;
-    animation:draw 2.1s ease-out .3s forwards;
-  }
-  @media (prefers-reduced-motion:reduce){
-    .pulse-line{ animation:none; stroke-dashoffset:0; }
-  }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
+@media(max-width:800px){
 
-  .contact-block{
-    display:flex; flex-wrap:wrap; gap:8px 28px;
-    font-family:'IBM Plex Mono', monospace;
+    .skills{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/* =========================
+   EXPERIENCE
+========================= */
+
+.experience{
+    border-left:1px solid var(--border);
+
+    margin-left:10px;
+}
+
+.experience-item{
+    position:relative;
+
+    padding:0 0 45px 35px;
+}
+
+.experience-item::before{
+    content:"";
+
+    position:absolute;
+
+    left:-5px;
+    top:5px;
+
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    box-shadow:0 0 15px var(--primary);
+}
+
+.exp-date{
+    font-size:12px;
+
+    color:var(--primary);
+
+    margin-bottom:7px;
+
+    font-family:"Space Grotesk";
+}
+
+.exp-title{
+    font-family:"Space Grotesk";
+
+    font-size:20px;
+
+    margin-bottom:4px;
+}
+
+.exp-company{
+    color:var(--secondary);
+
+    font-size:14px;
+
+    margin-bottom:10px;
+}
+
+.exp-description{
+    max-width:700px;
+
+    color:var(--muted);
+
+    font-size:14px;
+}
+
+/* =========================
+   EDUCATION
+========================= */
+
+.education{
+    display:grid;
+
+    gap:15px;
+}
+
+.edu{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding:24px;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.02);
+
+    transition:.3s;
+}
+
+.edu:hover{
+    border-color:rgba(98,230,183,.3);
+    transform:translateX(5px);
+}
+
+.edu h3{
+    font-family:"Space Grotesk";
+}
+
+.edu p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.edu-date{
+    color:var(--primary);
+
+    white-space:nowrap;
+
+    font-family:"Space Grotesk";
+
     font-size:13px;
-    color:var(--ink-soft);
-  }
-  .contact-block a{ text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:1px; }
-  .contact-block a:hover{ border-color:var(--signal); color:var(--signal-deep); }
+}
 
-  section{ padding:64px 0; border-bottom:1px solid var(--line); }
-  section:last-of-type{ border-bottom:none; }
+@media(max-width:600px){
 
-  .section-head{
-    display:flex; align-items:baseline; gap:14px;
-    margin-bottom:36px;
-  }
-  .section-head .num{
-    font-family:'IBM Plex Mono', monospace;
+    .edu{
+        flex-direction:column;
+    }
+
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+    text-align:center;
+
+    padding-bottom:130px;
+}
+
+.contact h2{
+    font-family:"Space Grotesk";
+
+    font-size:clamp(40px,7vw,70px);
+
+    letter-spacing:-2px;
+
+    margin-bottom:20px;
+}
+
+.contact h2 span{
+    color:var(--primary);
+}
+
+.contact p{
+    color:var(--muted);
+
+    max-width:550px;
+
+    margin:0 auto 30px;
+}
+
+.contact-links{
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+}
+
+.contact-link{
+    text-decoration:none;
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    padding:10px 16px;
+
+    border-radius:8px;
+
     font-size:13px;
-    color:var(--signal);
-  }
-  h2{
-    font-family:'IBM Plex Serif', serif;
-    font-weight:500;
-    font-size:clamp(24px, 3vw, 30px);
-    margin:0;
-  }
 
-  /* Timeline (formation) */
-  .timeline{ position:relative; padding-left:26px; }
-  .timeline::before{
-    content:"";
-    position:absolute; left:5px; top:6px; bottom:6px;
-    width:1px; background:var(--line);
-  }
-  .t-item{ position:relative; margin-bottom:34px; }
-  .t-item:last-child{ margin-bottom:0; }
-  .t-item::before{
-    content:"";
-    position:absolute; left:-26px; top:6px;
-    width:11px; height:11px; border-radius:50%;
-    background:var(--paper); border:2px solid var(--signal);
-  }
-  .t-item.current::before{ background:var(--signal); }
-  .t-date{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--signal-deep); margin-bottom:4px; }
-  .t-title{ font-weight:600; margin-bottom:2px; }
-  .t-sub{ color:var(--ink-soft); font-size:14.5px; }
-  .badge-current{
-    display:inline-block; margin-left:8px;
-    font-family:'IBM Plex Mono', monospace; font-size:10.5px;
-    letter-spacing:.02em;
-    background:var(--alert-wash); color:var(--alert);
-    padding:2px 7px; border-radius:3px;
-    transform:translateY(-1px);
-  }
+    transition:.3s;
+}
 
-  /* Experience */
-  .exp-item{ margin-bottom:30px; padding-bottom:30px; border-bottom:1px dashed var(--line); }
-  .exp-item:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
-  .exp-head{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 16px; margin-bottom:8px; }
-  .exp-role{ font-weight:600; font-size:17px; }
-  .exp-org{ color:var(--signal-deep); }
-  .exp-date{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-soft); white-space:nowrap; }
-  .exp-desc{ color:var(--ink-soft); margin:0 0 10px; max-width:64ch; }
-  .stack{ display:flex; flex-wrap:wrap; gap:6px; }
-  .stack span{
-    font-family:'IBM Plex Mono', monospace; font-size:11.5px;
-    border:1px solid var(--line); border-radius:3px;
-    padding:2px 7px; color:var(--ink-soft);
-  }
+.contact-link:hover{
+    border-color:var(--primary);
 
-  /* Projects — circuit */
-  .circuit{ position:relative; padding-left:30px; }
-  .circuit::before{
-    content:"";
-    position:absolute; left:9px; top:14px; bottom:14px; width:1px;
-    background:var(--line);
-  }
-  .circuit-dot{
-    position:absolute; left:2px; width:15px; height:15px; border-radius:50%;
-    background:var(--signal); box-shadow:0 0 0 4px var(--signal-wash);
-    animation:travel 6s linear infinite;
-  }
-  @media (prefers-reduced-motion:reduce){ .circuit-dot{ animation:none; top:14px; } }
-  @keyframes travel{
-    0%{ top:14px; opacity:1; }
-    48%{ opacity:1; }
-    50%{ top:calc(100% - 28px); opacity:0; }
-    51%{ top:14px; opacity:0; }
-    55%{ opacity:1; }
-    100%{ top:14px; opacity:1; }
-  }
-  .node{ position:relative; margin-bottom:40px; padding-left:24px; }
-  .node:last-child{ margin-bottom:0; }
-  .node::before{
-    content:"";
-    position:absolute; left:-30px; top:5px;
-    width:10px; height:10px; border-radius:50%;
-    background:var(--paper); border:2px solid var(--ink);
-  }
-  .node.featured::before{ border-color:var(--alert); }
-  .node-title{ font-weight:600; font-size:18px; margin-bottom:2px; display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
-  .node-tag{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); }
-  .node-featured-tag{
-    font-family:'IBM Plex Mono', monospace; font-size:10.5px;
-    background:var(--alert-wash); color:var(--alert);
-    padding:1px 7px; border-radius:3px;
-  }
-  .node-desc{ color:var(--ink-soft); max-width:62ch; margin:8px 0 0; }
-  .node-desc li{ margin-bottom:4px; }
+    color:var(--primary);
 
-  /* Skills */
-  .skill-groups{ display:grid; gap:30px; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); }
-  .skill-group h3{
-    font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:14px;
-    text-transform:none; margin:0 0 12px; color:var(--ink);
-    border-left:3px solid var(--signal); padding-left:10px;
-  }
-  .chips{ display:flex; flex-wrap:wrap; gap:7px; }
-  .chips span{
-    font-family:'IBM Plex Mono', monospace; font-size:12px;
-    background:var(--paper-2); border:1px solid var(--line);
-    padding:4px 9px; border-radius:3px; color:var(--ink-soft);
-  }
+    transform:translateY(-3px);
+}
 
-  /* Languages */
-  .langs{ display:flex; gap:36px; flex-wrap:wrap; }
-  .lang-item .lang-name{ font-weight:600; margin-bottom:3px; }
-  .lang-item .lang-level{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--signal-deep); }
+/* =========================
+   FOOTER
+========================= */
 
-  footer{
-    padding:70px 0 90px;
-  }
-  footer .sign{ font-family:'IBM Plex Serif', serif; font-style:italic; font-size:22px; margin-bottom:22px; }
-  .cta-row{ display:flex; flex-wrap:wrap; gap:14px; margin-bottom:34px; }
-  .btn{
-    display:inline-block; text-decoration:none;
-    font-family:'IBM Plex Mono', monospace; font-size:13px;
-    padding:11px 20px; border-radius:3px;
-    border:1px solid var(--ink);
-    transition:background .15s ease, color .15s ease;
-  }
-  .btn.primary{ background:var(--ink); color:var(--paper); }
-  .btn.primary:hover{ background:var(--signal-deep); border-color:var(--signal-deep); }
-  .btn.ghost:hover{ background:var(--ink); color:var(--paper); }
-  footer .foot-contact{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-soft); }
-  footer .foot-contact a{ text-decoration:none; border-bottom:1px solid var(--line); }
-  footer .foot-contact a:hover{ color:var(--signal-deep); border-color:var(--signal-deep); }
+footer{
+    border-top:1px solid var(--border);
+
+    padding:25px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+.reveal{
+    opacity:0;
+
+    transform:translateY(30px);
+
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
+}
+
+.reveal.active{
+    opacity:1;
+
+    transform:none;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+
+}
+
+@keyframes blink{
+
+    50%{
+        opacity:0;
+    }
+
+}
+
+@keyframes pulse{
+
+    50%{
+        transform:scale(1.5);
+        opacity:.5;
+    }
+
+}
+
+@keyframes rotate{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
 </style>
 </head>
+
 <body>
 
-<div class="rail" aria-hidden="true"></div>
+<div class="grid-bg"></div>
 
-<div class="wrap">
 
-  <header class="hero">
-    <p class="tick">journal technique — profil</p>
-    <h1 class="name">Loubna<br>Amellachou</h1>
-    <p class="role">Ingénieure en formation, <strong>Data Science &amp; Intelligence Artificielle</strong> — je construis des systèmes qui observent des données, apprennent leurs régularités, et anticipent ce qui va suivre : une recette, une intrusion, une panne réseau.</p>
+<!-- =========================
+     NAVBAR
+========================= -->
 
-    <div class="pulse-box">
-      <svg class="pulse" viewBox="0 0 560 64" preserveAspectRatio="none">
-        <path class="pulse-line" d="M0,32 L110,32 L128,10 L146,54 L164,32 L210,32 L226,20 L240,44 L256,32 L340,32 L356,8 L374,56 L392,32 L560,32" />
-      </svg>
-    </div>
+<nav id="navbar">
 
-    <div class="contact-block">
-      <a href="tel:+212674877235">0674 87 72 35</a>
-      <a href="mailto:loubnaamellachou@gmail.com">loubnaamellachou@gmail.com</a>
-      <span>Maroc</span>
-    </div>
-  </header>
+    <div class="nav-inner">
 
-  <section id="formation">
-    <div class="section-head"><span class="num mono">01</span><h2>Formation</h2></div>
-    <div class="timeline">
-      <div class="t-item current">
-        <div class="t-date">2024 — 2027<span class="badge-current">EN COURS · 3E ANNÉE</span></div>
-        <div class="t-title">Diplôme d'ingénieur, Sciences des données, Big Data et IA</div>
-        <div class="t-sub">ENSIASD Taroudant — Majeure IA et Big Data</div>
-      </div>
-      <div class="t-item">
-        <div class="t-date">2022 — 2024</div>
-        <div class="t-title">DUT Génie Informatique</div>
-        <div class="t-sub">EST Agadir — Mention Bien</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="experience">
-    <div class="section-head"><span class="num mono">02</span><h2>Expérience professionnelle</h2></div>
-
-    <div class="exp-item">
-      <div class="exp-head">
-        <div><span class="exp-role">Développeuse Full Stack — IA appliquée</span><br><span class="exp-org">AHdigital, Agadir</span></div>
-        <div class="exp-date">Stage — 2025</div>
-      </div>
-      <p class="exp-desc">Stage réalisé dans le cadre de ma 3e année : contribution au projet <strong>NETPulse AI</strong>, une plateforme de supervision réseau prédictive — objectif d'anticiper les incidents et anomalies réseau avant qu'ils n'affectent le service, plutôt que de les constater après coup.</p>
-      <div class="stack"><span>IA prédictive</span><span>Supervision réseau</span><span>Détection d'anomalies</span></div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-head">
-        <div><span class="exp-role">Développeuse Full Stack</span><br><span class="exp-org">Alloleadsolutions</span></div>
-        <div class="exp-date">Juillet — Août 2025</div>
-      </div>
-      <p class="exp-desc">Amélioration d'un CRM e-commerce : développement des modules commandes, clients et gestion de stock.</p>
-      <div class="stack"><span>Laravel</span><span>Alpine.js</span><span>MySQL</span><span>Hostinger</span></div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-head">
-        <div><span class="exp-role">Développeuse Full Stack</span><br><span class="exp-org">Netalek services</span></div>
-        <div class="exp-date">Avril — Juin 2023</div>
-      </div>
-      <p class="exp-desc">Conception d'une plateforme tripartite intégrant un chatbot intelligent, avec API externes Brevo et Zoom pour la redirection dynamique vers des experts.</p>
-      <div class="stack"><span>Laravel</span><span>Ajax</span><span>MySQL</span><span>Bootstrap</span><span>Git</span></div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-head">
-        <div><span class="exp-role">Développeuse Web</span><br><span class="exp-org">Rizk equipement</span></div>
-        <div class="exp-date">Juillet — Août 2023</div>
-      </div>
-      <p class="exp-desc">Conception et développement d'un site vitrine avec gestion dynamique des données.</p>
-      <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>MySQL</span></div>
-    </div>
-  </section>
-
-  <section id="projets">
-    <div class="section-head"><span class="num mono">03</span><h2>Projets</h2></div>
-    <div class="circuit">
-      <div class="circuit-dot" aria-hidden="true"></div>
-
-      <div class="node featured">
-        <div class="node-title">NETPulse AI <span class="node-featured-tag">stage AHdigital</span></div>
-        <div class="node-tag">Supervision réseau prédictive</div>
-        <ul class="node-desc">
-          <li>Système de supervision qui apprend le comportement normal d'un réseau pour repérer, avant l'incident, les signaux annonçant une anomalie ou une panne.</li>
-        </ul>
-      </div>
-
-      <div class="node">
-        <div class="node-title">RecipeMind</div>
-        <div class="node-tag">Python · Scikit-learn · Streamlit</div>
-        <ul class="node-desc">
-          <li>Moteur de recommandation combinant K-Means et Random Forest sur plus de 500 000 recettes.</li>
-          <li>Interface interactive Streamlit pour une démonstration en temps réel.</li>
-        </ul>
-      </div>
-
-      <div class="node">
-        <div class="node-title">Face AntiSpoofing</div>
-        <div class="node-tag">Python · PyTorch · Sécurité biométrique</div>
-        <ul class="node-desc">
-          <li>Détection d'attaques par présentation (photo, masque 3D) avec un Swin Transformer.</li>
-          <li>Comparaison de 5 stratégies de transfer learning.</li>
-          <li>Implémentation d'attaques adversariales FGSM et PGD, avec proposition d'un entraînement adversarial défensif.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="competences">
-    <div class="section-head"><span class="num mono">04</span><h2>Compétences techniques</h2></div>
-    <div class="skill-groups">
-      <div class="skill-group">
-        <h3>Langages &amp; frameworks</h3>
-        <div class="chips">
-          <span>Java</span><span>Python</span><span>PHP</span><span>SQL</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Laravel</span><span>React</span><span>PyTorch</span><span>Scikit-learn</span><span>Streamlit</span>
+        <div class="logo">
+            L<span>.</span>A
         </div>
-      </div>
-      <div class="skill-group">
-        <h3>Data &amp; intelligence artificielle</h3>
-        <div class="chips">
-          <span>Machine Learning</span><span>K-Means</span><span>Random Forest</span><span>Deep Learning</span><span>Swin Transformer</span><span>Feature Engineering</span><span>Transfer Learning</span><span>Attaques adversariales</span>
+
+        <div class="nav-links">
+
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+
         </div>
-      </div>
-      <div class="skill-group">
-        <h3>Bases de données &amp; outils</h3>
-        <div class="chips">
-          <span>MySQL</span><span>SQL Server</span><span>MongoDB</span><span>Git</span><span>GitHub</span><span>Linux</span><span>Hadoop</span><span>Power BI</span><span>VS Code</span>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<header class="hero">
+
+    <div class="hero-content">
+
+        <div class="status">
+            <span class="status-dot"></span>
+            Open to PFE &amp; career opportunities
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section id="langues">
-    <div class="section-head"><span class="num mono">05</span><h2>Langues</h2></div>
-    <div class="langs">
-      <div class="lang-item"><div class="lang-name">Arabe</div><div class="lang-level">Maternelle</div></div>
-      <div class="lang-item"><div class="lang-name">Français</div><div class="lang-level">Courant</div></div>
-      <div class="lang-item"><div class="lang-name">Anglais</div><div class="lang-level">Professionnel</div></div>
-    </div>
-  </section>
+        <h1>
+            Loubna<br>
+            <span class="gradient">Amellachou</span>
+        </h1>
 
-  <footer>
-    <p class="sign">Toujours en train d'apprendre le prochain signal.</p>
-    <div class="cta-row">
-      <a class="btn primary" href="mailto:loubnaamellachou@gmail.com">Écrire un e-mail</a>
-      <a class="btn ghost" href="./CV_Loubna_AMELLACHOU.pdf" target="_blank" rel="noopener">Télécharger le CV (PDF)</a>
-    </div>
-    <div class="foot-contact">
-      <a href="tel:+212674877235">0674 87 72 35</a> · <a href="mailto:loubnaamellachou@gmail.com">loubnaamellachou@gmail.com</a> · Maroc
-    </div>
-  </footer>
+        <p class="hero-description">
 
-</div>
+            Engineering student passionate about
+
+            <span class="typing" id="typing"></span>
+            <span class="cursor">|</span>
+
+            <br><br>
+
+            I build intelligent solutions that transform
+            data into useful insights, predictions and
+            real-world applications.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#projects" class="btn btn-primary">
+                Explore my work →
+            </a>
+
+            <a href="./CV_Loubna_AMELLACHOU.pdf"
+               target="_blank"
+               class="btn btn-outline">
+
+                Download CV
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- animated data visualization -->
+
+    <div class="data-orbit">
+
+        <div class="orbit"></div>
+        <div class="orbit"></div>
+
+        <div class="node"></div>
+        <div class="node"></div>
+        <div class="node"></div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section id="about" class="reveal">
+
+    <div class="section-label">
+        01 / ABOUT
+    </div>
+
+    <h2 class="section-title">
+        Data, intelligence <span>&amp; curiosity.</span>
+    </h2>
+
+    <div class="about-grid">
+
+        <div class="about-text">
+
+            <p>
+                I'm <span class="highlight">Loubna Amellachou</span>,
+                an engineering student specializing in
+                Big Data, Data Science and Artificial Intelligence.
+            </p>
+
+            <p>
+                My interests sit at the intersection of
+                <span class="highlight">
+                data analysis, machine learning, deep learning
+                and big data technologies.
+                </span>
+            </p>
+
+            <p>
+                I enjoy turning complex problems into
+                practical and understandable solutions —
+                from data preprocessing and model development
+                to interactive applications.
+            </p>
+
+        </div>
+
+
+        <div class="about-card">
+
+            <div class="about-card-title">
+                QUICK PROFILE
+            </div>
+
+            <div class="about-stat">
+                <span>Field</span>
+                <strong>Data &amp; AI</strong>
+            </div>
+
+            <div class="about-stat">
+                <span>Education</span>
+                <strong>Engineering</strong>
+            </div>
+
+            <div class="about-stat">
+                <span>Focus</span>
+                <strong>Big Data · ML · AI</strong>
+            </div>
+
+            <div class="about-stat">
+                <span>Location</span>
+                <strong>Morocco</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PROJECTS
+========================= -->
+
+<section id="projects" class="reveal">
+
+    <div class="section-label">
+        02 / SELECTED WORK
+    </div>
+
+    <h2 class="section-title">
+        Projects <span>that matter.</span>
+    </h2>
+
+
+    <div class="projects">
+
+
+        <!-- NETPULSE -->
+
+        <article class="project">
+
+            <div class="project-number">
+                01 — FEATURED
+            </div>
+
+            <div class="project-icon">
+                ◉
+            </div>
+
+            <h3>NETPulse AI</h3>
+
+            <div class="project-subtitle">
+                Predictive Network Intelligence
+            </div>
+
+            <p>
+                AI-powered network monitoring platform
+                designed to detect anomalies and anticipate
+                potential network incidents.
+            </p>
+
+            <div class="tags">
+
+                <span class="tag">Python</span>
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Network</span>
+                <span class="tag">Anomaly Detection</span>
+
+            </div>
+
+        </article>
+
+
+        <!-- RECIPE -->
+
+        <article class="project">
+
+            <div class="project-number">
+                02
+            </div>
+
+            <div class="project-icon">
+                ◇
+            </div>
+
+            <h3>RecipeMind</h3>
+
+            <div class="project-subtitle">
+                Intelligent Recommendation
+            </div>
+
+            <p>
+                Recipe recommendation system combining
+                K-Means and Random Forest on a large
+                recipe dataset with an interactive interface.
+            </p>
+
+            <div class="tags">
+
+                <span class="tag">Python</span>
+                <span class="tag">Scikit-learn</span>
+                <span class="tag">K-Means</span>
+                <span class="tag">Streamlit</span>
+
+            </div>
+
+        </article>
+
+
+        <!-- FACE -->
+
+        <article class="project">
+
+            <div class="project-number">
+                03
+            </div>
+
+            <div class="project-icon">
+                ◎
+            </div>
+
+            <h3>Face AntiSpoofing</h3>
+
+            <div class="project-subtitle">
+                AI &amp; Biometric Security
+            </div>
+
+            <p>
+                Deep learning solution for detecting
+                presentation attacks using a Swin Transformer
+                and transfer learning strategies.
+            </p>
+
+            <div class="tags">
+
+                <span class="tag">PyTorch</span>
+                <span class="tag">Swin Transformer</span>
+                <span class="tag">Deep Learning</span>
+                <span class="tag">FGSM / PGD</span>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SKILLS
+========================= -->
+
+<section id="skills" class="reveal">
+
+    <div class="section-label">
+        03 / TOOLKIT
+    </div>
+
+    <h2 class="section-title">
+        My technical <span>toolkit.</span>
+    </h2>
+
+
+    <div class="skills">
+
+
+        <div class="skill-card">
+
+            <h3>Data Science</h3>
+
+            <div class="skill-list">
+
+                <span class="skill">Python</span>
+                <span class="skill">Pandas</span>
+                <span class="skill">NumPy</span>
+                <span class="skill">Scikit-learn</span>
+                <span class="skill">EDA</span>
+                <span class="skill">Feature Engineering</span>
+                <span class="skill">Machine Learning</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="skill-card">
+
+            <h3>Artificial Intelligence</h3>
+
+            <div class="skill-list">
+
+                <span class="skill">PyTorch</span>
+                <span class="skill">Deep Learning</span>
+                <span class="skill">Transfer Learning</span>
+                <span class="skill">Swin Transformer</span>
+                <span class="skill">NLP</span>
+                <span class="skill">Computer Vision</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="skill-card">
+
+            <h3>Big Data &amp; Tools</h3>
+
+            <div class="skill-list">
+
+                <span class="skill">Hadoop</span>
+                <span class="skill">Spark</span>
+                <span class="skill">SQL</span>
+                <span class="skill">MongoDB</span>
+                <span class="skill">Git</span>
+                <span class="skill">GitHub</span>
+                <span class="skill">Linux</span>
+                <span class="skill">Power BI</span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     EXPERIENCE
+========================= -->
+
+<section id="experience" class="reveal">
+
+    <div class="section-label">
+        04 / EXPERIENCE
+    </div>
+
+    <h2 class="section-title">
+        Where I've <span>worked.</span>
+    </h2>
+
+
+    <div class="experience">
+
+
+        <div class="experience-item">
+
+            <div class="exp-date">
+                2025
+            </div>
+
+            <div class="exp-title">
+                Full Stack Developer — Applied AI
+            </div>
+
+            <div class="exp-company">
+                AHdigital · Agadir
+            </div>
+
+            <p class="exp-description">
+                Contribution to NETPulse AI, a predictive
+                network supervision platform focused on
+                anomaly detection and network intelligence.
+            </p>
+
+        </div>
+
+
+        <div class="experience-item">
+
+            <div class="exp-date">
+                July — August 2025
+            </div>
+
+            <div class="exp-title">
+                Full Stack Developer
+            </div>
+
+            <div class="exp-company">
+                Alloleadsolutions
+            </div>
+
+            <p class="exp-description">
+                Development and improvement of e-commerce
+                CRM modules including orders, customers
+                and inventory management.
+            </p>
+
+        </div>
+
+
+        <div class="experience-item">
+
+            <div class="exp-date">
+                April — June 2023
+            </div>
+
+            <div class="exp-title">
+                Full Stack Developer
+            </div>
+
+            <div class="exp-company">
+                Netalek Services
+            </div>
+
+            <p class="exp-description">
+                Development of a tripartite platform with
+                an intelligent chatbot and external API
+                integrations.
+            </p>
+
+        </div>
+
+
+        <div class="experience-item">
+
+            <div class="exp-date">
+                July — August 2023
+            </div>
+
+            <div class="exp-title">
+                Web Developer
+            </div>
+
+            <div class="exp-company">
+                Rizk Equipement
+            </div>
+
+            <p class="exp-description">
+                Design and development of a dynamic
+                company showcase website.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     EDUCATION
+========================= -->
+
+<section class="reveal">
+
+    <div class="section-label">
+        05 / EDUCATION
+    </div>
+
+    <h2 class="section-title">
+        Academic <span>journey.</span>
+    </h2>
+
+
+    <div class="education">
+
+
+        <div class="edu">
+
+            <div>
+
+                <h3>
+                    Engineering Degree — Big Data &amp; AI
+                </h3>
+
+                <p>
+                    ENSIASD Taroudant · AI &amp; Big Data
+                </p>
+
+            </div>
+
+            <div class="edu-date">
+                2024 — 2027
+            </div>
+
+        </div>
+
+
+        <div class="edu">
+
+            <div>
+
+                <h3>
+                    DUT — Computer Engineering
+                </h3>
+
+                <p>
+                    EST Agadir · Mention Bien
+                </p>
+
+            </div>
+
+            <div class="edu-date">
+                2022 — 2024
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section id="contact" class="contact reveal">
+
+    <div class="section-label">
+        06 / CONTACT
+    </div>
+
+    <h2>
+        Let's build something<br>
+        <span>intelligent.</span>
+    </h2>
+
+    <p>
+        I'm currently looking for a PFE opportunity
+        and future career opportunities in Data Science,
+        Big Data and Artificial Intelligence.
+    </p>
+
+
+    <div class="contact-links">
+
+        <a
+            class="contact-link"
+            href="mailto:loubnaamellachou@gmail.com">
+            Email
+        </a>
+
+        <a
+            class="contact-link"
+            href="https://www.linkedin.com/in/loubna-amellachou-1975ba2b3?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+            target="_blank">
+            LinkedIn
+        </a>
+
+        <a
+            class="contact-link"
+            href="https://github.com/LoubnaAm"
+            target="_blank">
+            GitHub
+        </a>
+
+        <a
+            class="contact-link"
+            href="./CV_Loubna_AMELLACHOU.pdf"
+            target="_blank">
+            CV
+        </a>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+    © 2026 Loubna Amellachou · Data Science · Big Data · AI
+
+</footer>
+
+
+<script>
+
+/* =========================
+   TYPING EFFECT
+========================= */
+
+const words = [
+    "Data Science.",
+    "Big Data.",
+    "Artificial Intelligence.",
+    "Machine Learning."
+];
+
+const typingElement =
+    document.getElementById("typing");
+
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function type(){
+
+    const current =
+        words[wordIndex];
+
+    if(!deleting){
+
+        typingElement.textContent =
+            current.substring(0,charIndex + 1);
+
+        charIndex++;
+
+        if(charIndex === current.length){
+
+            deleting = true;
+
+            setTimeout(type,1600);
+
+            return;
+        }
+
+    }else{
+
+        typingElement.textContent =
+            current.substring(0,charIndex - 1);
+
+        charIndex--;
+
+        if(charIndex === 0){
+
+            deleting = false;
+
+            wordIndex =
+                (wordIndex + 1) % words.length;
+
+        }
+
+    }
+
+    setTimeout(type,
+        deleting ? 45 : 80
+    );
+}
+
+type();
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+const navbar =
+    document.getElementById("navbar");
+
+window.addEventListener("scroll",()=>{
+
+    if(window.scrollY > 30){
+
+        navbar.classList.add("scrolled");
+
+    }else{
+
+        navbar.classList.remove("scrolled");
+
+    }
+
+});
+
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const reveals =
+    document.querySelectorAll(".reveal");
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add("active");
+
+                    observer.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+
+reveals.forEach(
+    element => observer.observe(element)
+);
+
+</script>
 
 </body>
 </html>
