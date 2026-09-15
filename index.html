@@ -1542,6 +1542,36 @@ html[dir="rtl"] .edu:hover{
     }
 }
 
+
+/* =========================
+   CLEAN NAV + MENU
+========================= */
+.nav-inner{max-width:var(--max);margin:auto;height:72px;padding:0 25px;display:flex;align-items:center;gap:20px}
+.logo{color:var(--text);text-decoration:none;flex:0 0 auto}
+.desktop-nav{display:flex;align-items:center;justify-content:center;gap:20px;flex:1}
+.desktop-nav a{color:var(--muted);text-decoration:none;font-size:13px;white-space:nowrap;transition:.25s}
+.desktop-nav a:hover{color:var(--text)}
+.nav-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.language-selector{display:flex;align-items:center;gap:6px}
+.language-icon{font-size:15px}
+#languageSelect{appearance:none;-webkit-appearance:none;border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.035);color:var(--text);padding:8px 28px 8px 9px;font:700 10px "DM Sans",sans-serif;cursor:pointer;outline:none}
+#languageSelect option{background:#0e1622;color:var(--text)}
+.menu-toggle{display:none;width:42px;height:42px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.03);cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.menu-toggle span{width:17px;height:2px;border-radius:2px;background:var(--text);transition:.2s}
+.menu-toggle.active span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-toggle.active span:nth-child(2){opacity:0}
+.menu-toggle.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;max-width:var(--max);margin:0 auto;padding:0 25px 16px}
+.mobile-menu.open{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mobile-menu a{padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.025);color:var(--muted);text-decoration:none;font-size:12px}
+.mobile-menu a:hover{color:var(--text);border-color:rgba(98,230,183,.3)}
+.project-arrow{position:absolute;right:20px;top:20px;width:31px;height:31px;display:grid;place-items:center;border:1px solid var(--border);border-radius:50%;color:var(--muted);background:rgba(255,255,255,.02);transition:.25s}
+.project:hover .project-arrow{color:var(--primary);transform:translate(2px,-2px);border-color:rgba(98,230,183,.35)}
+@media(max-width:980px){.desktop-nav{display:none}.menu-toggle{display:flex}.nav-inner{justify-content:space-between}}
+@media(max-width:600px){.nav-inner{height:64px;padding:0 14px}.language-icon{display:none}#languageSelect{font-size:9px;padding:7px 24px 7px 8px}.mobile-menu{padding:0 14px 14px}.ai-assistant-wrap{right:16px;bottom:16px}}
+html[dir="rtl"] .desktop-nav,html[dir="rtl"] .mobile-menu{direction:rtl}
+html[dir="rtl"] .about-grid{direction:rtl}
+
 </style>
 </head>
 
@@ -1555,14 +1585,10 @@ html[dir="rtl"] .edu:hover{
 ========================= -->
 
 <nav id="navbar">
-
     <div class="nav-inner">
+        <a href="#top" class="logo">L<span>.</span>A</a>
 
-        <div class="logo">
-            L<span>.</span>A
-        </div>
-
-        <div class="nav-links">
+        <div class="desktop-nav">
             <a href="#about" data-i18n="nav.about">About</a>
             <a href="#projects" data-i18n="nav.projects">Projects</a>
             <a href="#skills" data-i18n="nav.skills">Skills</a>
@@ -1571,18 +1597,31 @@ html[dir="rtl"] .edu:hover{
             <a href="#contact" data-i18n="nav.contact">Contact</a>
         </div>
 
-        <div class="language-selector">
-            <span class="language-icon" aria-hidden="true">🌐</span>
-            <select id="languageSelect" aria-label="Choose language">
-                <option value="fr">🇫🇷  FRANÇAIS</option>
-                <option value="en">🇬🇧  ENGLISH</option>
-                <option value="ar">🇲🇦  العربية</option>
-                <option value="tz">ⵜ  TAMAZIGHT</option>
-            </select>
-        </div>
+        <div class="nav-actions">
+            <div class="language-selector">
+                <span class="language-icon">🌐</span>
+                <select id="languageSelect" aria-label="Choose language">
+                    <option value="fr">🇫🇷 FRANÇAIS</option>
+                    <option value="en">🇬🇧 ENGLISH</option>
+                    <option value="ar">🇲🇦 العربية</option>
+                    <option value="tz">ⵜ TAMAZIGHT</option>
+                </select>
+            </div>
 
+            <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </div>
 
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#projects" data-i18n="nav.projects">Projects</a>
+        <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="#experience" data-i18n="nav.experience">Experience</a>
+        <a href="#education" data-i18n="nav.education">Education</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </div>
 </nav>
 
 
@@ -1590,13 +1629,13 @@ html[dir="rtl"] .edu:hover{
      HERO
 ========================= -->
 
-<header class="hero">
+<header class="hero" id="top">
 
     <div class="hero-content">
 
         <div class="status">
             <span class="status-dot"></span>
-            <span data-i18n="hero.status">Open to PFE &amp; career opportunities</span>
+            <span data-i18n="hero.status"><span data-i18n="hero.status">Open to PFE &amp; career opportunities</span></span>
         </div>
 
         <h1>
@@ -1627,7 +1666,7 @@ html[dir="rtl"] .edu:hover{
                target="_blank"
                class="btn btn-outline">
 
-                <span data-i18n="hero.cv">Download CV</span>
+                <span data-i18n="hero.cv"><span data-i18n="hero.cv">Download CV</span></span>
 
             </a>
 
@@ -1647,7 +1686,7 @@ html[dir="rtl"] .edu:hover{
 <section id="about" class="reveal">
 
     <div class="section-label">
-        <span data-i18n="about.label">01 / ABOUT</span>
+        <span data-i18n="about.label"><span data-i18n="about.label">01 / ABOUT</span></span>
     </div>
 
     <h2 class="section-title">
@@ -1713,7 +1752,7 @@ html[dir="rtl"] .edu:hover{
 <section id="projects" class="reveal">
 
     <div class="section-label">
-        <span data-i18n="projects.label">02 / SELECTED WORK</span>
+        <span data-i18n="projects.label"><span data-i18n="projects.label">02 / SELECTED WORK</span></span>
     </div>
 
     <h2 class="section-title">
@@ -1841,7 +1880,7 @@ html[dir="rtl"] .edu:hover{
 <section id="skills" class="reveal">
 
     <div class="section-label">
-        <span data-i18n="skills.label">03 / TOOLKIT</span>
+        <span data-i18n="skills.label"><span data-i18n="skills.label">03 / TOOLKIT</span></span>
     </div>
 
     <h2 class="section-title">
@@ -1921,7 +1960,7 @@ html[dir="rtl"] .edu:hover{
 <section id="experience" class="reveal">
 
     <div class="section-label">
-        <span data-i18n="experience.label">04 / EXPERIENCE</span>
+        <span data-i18n="experience.label"><span data-i18n="experience.label">04 / EXPERIENCE</span></span>
     </div>
 
     <h2 class="section-title">
@@ -2028,7 +2067,7 @@ html[dir="rtl"] .edu:hover{
 <section id="education" class="reveal">
 
     <div class="section-label">
-        <span data-i18n="education.label">05 / EDUCATION</span>
+        <span data-i18n="education.label"><span data-i18n="education.label">05 / EDUCATION</span></span>
     </div>
 
     <h2 class="section-title">
@@ -2093,7 +2132,7 @@ html[dir="rtl"] .edu:hover{
 <section id="contact" class="contact reveal">
 
     <div class="section-label">
-        <span data-i18n="contact.label">06 / CONTACT</span>
+        <span data-i18n="contact.label"><span data-i18n="contact.label">06 / CONTACT</span></span>
     </div>
 
     <h2>
@@ -2207,285 +2246,223 @@ html[dir="rtl"] .edu:hover{
 
 
 
+
 <script>
-/* =========================
-   TYPING EFFECT
-========================= */
-
-const typingWords = {
-    fr:["Data Science.","Big Data.","Intelligence Artificielle.","Machine Learning."],
-    en:["Data Science.","Big Data.","Artificial Intelligence.","Machine Learning."],
-    ar:["علوم البيانات.","البيانات الضخمة.","الذكاء الاصطناعي.","التعلم الآلي."],
-    tz:["Data Science.","Big Data.","Artificial Intelligence.","Machine Learning."]
-};
-
-const typingElement = document.getElementById("typing");
-let activeWords = typingWords.en;
-let wordIndex = 0;
-let charIndex = 0;
-let deleting = false;
-
-function type(){
-    if(!typingElement || !activeWords.length) return;
-
-    const current = activeWords[wordIndex];
-
-    if(!deleting){
-        typingElement.textContent = current.substring(0,charIndex + 1);
-        charIndex++;
-
-        if(charIndex === current.length){
-            deleting = true;
-            setTimeout(type,1500);
-            return;
-        }
-    }else{
-        typingElement.textContent = current.substring(0,charIndex - 1);
-        charIndex--;
-
-        if(charIndex === 0){
-            deleting = false;
-            wordIndex = (wordIndex + 1) % activeWords.length;
-        }
-    }
-
-    setTimeout(type, deleting ? 45 : 75);
-}
-
-
-/* =========================
-   TRANSLATIONS
-========================= */
-
 const translations = {
-    fr:{
-        "nav.about":"À propos","nav.projects":"Projets","nav.skills":"Compétences",
-        "nav.experience":"Expérience","nav.education":"Formation","nav.contact":"Contact",
-        "hero.status":"Ouverte aux opportunités de PFE et de carrière",
-        "hero.intro":"Étudiante ingénieure passionnée par",
-        "hero.description":"Je conçois des solutions intelligentes qui transforment les données en informations utiles, prédictions et applications concrètes.",
-        "hero.explore":"Découvrir mes projets","hero.cv":"Télécharger mon CV",
-        "about.label":"01 / À PROPOS","about.title":"Données, intelligence","about.title2":"& curiosité.",
-        "about.p1":"Je suis Loubna Amellachou, étudiante ingénieure spécialisée en Big Data, Data Science et Intelligence Artificielle.",
-        "about.p2":"Mes centres d’intérêt se situent à l’intersection de l’analyse de données, du Machine Learning, du Deep Learning et des technologies Big Data.",
-        "about.p3":"J’aime transformer des problèmes complexes en solutions pratiques et compréhensibles — du prétraitement des données au développement de modèles et d’applications interactives.",
-        "about.profile":"PROFIL EN BREF","about.field":"Domaine","about.education":"Formation","about.focus":"Orientation","about.location":"Localisation",
-        "projects.label":"02 / PROJETS SÉLECTIONNÉS","projects.title":"Des projets","projects.title2":"qui ont du sens.",
-        "project.netpulse.subtitle":"Intelligence prédictive des réseaux",
-        "project.netpulse.description":"Plateforme intelligente de supervision réseau conçue pour détecter les anomalies et anticiper les incidents potentiels.",
-        "project.recipe.subtitle":"Recommandation intelligente",
-        "project.recipe.description":"Système de recommandation de recettes combinant K-Means et Random Forest sur un ensemble de données avec une interface interactive.",
-        "project.face.subtitle":"IA & sécurité biométrique",
-        "project.face.description":"Solution de Deep Learning pour détecter les attaques de présentation à l’aide d’un Swin Transformer et de techniques de Transfer Learning.",
-        "skills.label":"03 / COMPÉTENCES","skills.title":"Ma boîte à outils","skills.title2":"technique.",
-        "experience.label":"04 / EXPÉRIENCE","experience.title":"Mon expérience","experience.title2":"professionnelle.",
-        "experience.ahdigital":"Contribution à NETPulse AI, une plateforme prédictive de supervision réseau axée sur la détection d’anomalies et l’intelligence réseau.",
-        "experience.allolead":"Développement et amélioration de modules CRM e-commerce comprenant les commandes, les clients et la gestion des stocks.",
-        "experience.netalek":"Développement d’une plateforme tripartite avec un chatbot intelligent et des intégrations d’API externes.",
-        "experience.rizk":"Conception et développement d’un site web dynamique de présentation d’entreprise.",
-        "education.label":"05 / FORMATION","education.title":"Mon parcours","education.title2":"académique.",
-        "education.degree":"Cycle ingénieur — Big Data & AI","education.school":"ENSIASD Taroudant · AI & Big Data",
-        "education.dut":"DUT — Génie Informatique","education.est":"EST Agadir · Mention Bien",
-        "contact.label":"06 / CONTACT","contact.title":"Construisons quelque chose de","contact.title2":"intelligent.",
-        "contact.description":"Je suis actuellement à la recherche d’une opportunité de PFE et de futures opportunités professionnelles en Data Science, Big Data et Intelligence Artificielle.",
-        "contact.email":"Email","contact.linkedin":"LinkedIn","contact.github":"GitHub",
-        "footer":"© 2026 Loubna Amellachou · Data Science · Big Data · AI"
-    },
-    en:{
-        "nav.about":"About","nav.projects":"Projects","nav.skills":"Skills","nav.experience":"Experience","nav.education":"Education","nav.contact":"Contact",
-        "hero.status":"Open to PFE & career opportunities","hero.intro":"Engineering student passionate about",
-        "hero.description":"I build intelligent solutions that transform data into useful insights, predictions and real-world applications.",
-        "hero.explore":"Explore my work","hero.cv":"Download CV",
-        "about.label":"01 / ABOUT","about.title":"Data, intelligence","about.title2":"& curiosity.",
-        "about.p1":"I'm Loubna Amellachou, an engineering student specializing in Big Data, Data Science and Artificial Intelligence.",
-        "about.p2":"My interests sit at the intersection of data analysis, machine learning, deep learning and big data technologies.",
-        "about.p3":"I enjoy turning complex problems into practical and understandable solutions — from data preprocessing and model development to interactive applications.",
-        "about.profile":"QUICK PROFILE","about.field":"Field","about.education":"Education","about.focus":"Focus","about.location":"Location",
-        "projects.label":"02 / SELECTED WORK","projects.title":"Projects","projects.title2":"that matter.",
-        "project.netpulse.subtitle":"Predictive Network Intelligence",
-        "project.netpulse.description":"AI-powered network monitoring platform designed to detect anomalies and anticipate potential network incidents.",
-        "project.recipe.subtitle":"Intelligent Recommendation",
-        "project.recipe.description":"Recipe recommendation system combining K-Means and Random Forest on a recipe dataset with an interactive interface.",
-        "project.face.subtitle":"AI & Biometric Security",
-        "project.face.description":"Deep learning solution for detecting presentation attacks using a Swin Transformer and transfer learning techniques.",
-        "skills.label":"03 / TOOLKIT","skills.title":"My technical","skills.title2":"toolkit.",
-        "experience.label":"04 / EXPERIENCE","experience.title":"Where I've","experience.title2":"worked.",
-        "experience.ahdigital":"Contribution to NETPulse AI, a predictive network supervision platform focused on anomaly detection and network intelligence.",
-        "experience.allolead":"Development and improvement of e-commerce CRM modules including orders, customers and inventory management.",
-        "experience.netalek":"Development of a tripartite platform with an intelligent chatbot and external API integrations.",
-        "experience.rizk":"Design and development of a dynamic company showcase website.",
-        "education.label":"05 / EDUCATION","education.title":"Academic","education.title2":"journey.",
-        "education.degree":"Engineering Degree — Big Data & AI","education.school":"ENSIASD Taroudant · AI & Big Data",
-        "education.dut":"DUT — Computer Engineering","education.est":"EST Agadir · Mention Bien",
-        "contact.label":"06 / CONTACT","contact.title":"Let's build something","contact.title2":"intelligent.",
-        "contact.description":"I'm currently looking for a PFE opportunity and future career opportunities in Data Science, Big Data and Artificial Intelligence.",
-        "contact.email":"Email","contact.linkedin":"LinkedIn","contact.github":"GitHub",
-        "footer":"© 2026 Loubna Amellachou · Data Science · Big Data · AI"
-    },
-    ar:{
-        "nav.about":"نبذة عني","nav.projects":"المشاريع","nav.skills":"المهارات","nav.experience":"الخبرة","nav.education":"التعليم","nav.contact":"تواصل معي",
-        "hero.status":"متاحة لفرص التدريب والعمل","hero.intro":"طالبة مهندسة شغوفة بـ",
-        "hero.description":"أطوّر حلولاً ذكية تحول البيانات إلى معلومات مفيدة وتنبؤات وتطبيقات عملية.",
-        "hero.explore":"اكتشف مشاريعي","hero.cv":"تحميل السيرة الذاتية",
-        "about.label":"01 / نبذة عني","about.title":"البيانات والذكاء","about.title2":"والفضول.",
-        "about.p1":"أنا لبنى أملاشو، طالبة مهندسة متخصصة في Big Data وعلوم البيانات والذكاء الاصطناعي.",
-        "about.p2":"تتركز اهتماماتي في تحليل البيانات والتعلم الآلي والتعلم العميق وتقنيات البيانات الضخمة.",
-        "about.p3":"أستمتع بتحويل المشكلات المعقدة إلى حلول عملية ومفهومة، من معالجة البيانات وتطوير النماذج إلى التطبيقات التفاعلية.",
-        "about.profile":"نبذة سريعة","about.field":"المجال","about.education":"التكوين","about.focus":"التخصص","about.location":"الموقع",
-        "projects.label":"02 / المشاريع المختارة","projects.title":"مشاريع","projects.title2":"ذات قيمة.",
-        "project.netpulse.subtitle":"الذكاء التنبؤي للشبكات",
-        "project.netpulse.description":"منصة ذكية لمراقبة الشبكات تهدف إلى اكتشاف الحالات الشاذة والتنبؤ بالحوادث المحتملة.",
-        "project.recipe.subtitle":"التوصية الذكية","project.recipe.description":"نظام لتوصية الوصفات يجمع بين K-Means وRandom Forest مع واجهة تفاعلية.",
-        "project.face.subtitle":"الذكاء الاصطناعي والأمن البيومتري","project.face.description":"حل يعتمد على التعلم العميق لاكتشاف هجمات العرض باستخدام Swin Transformer وتقنيات Transfer Learning.",
-        "skills.label":"03 / المهارات","skills.title":"أدواتي","skills.title2":"التقنية.",
-        "experience.label":"04 / الخبرة","experience.title":"خبرتي","experience.title2":"المهنية.",
-        "experience.ahdigital":"المساهمة في NETPulse AI، وهي منصة تنبؤية لمراقبة الشبكات تركز على اكتشاف الحالات الشاذة وذكاء الشبكات.",
-        "experience.allolead":"تطوير وتحسين وحدات CRM للتجارة الإلكترونية تشمل الطلبات والعملاء وإدارة المخزون.",
-        "experience.netalek":"تطوير منصة ثلاثية الأطراف مع روبوت محادثة ذكي وتكامل مع واجهات API خارجية.",
-        "experience.rizk":"تصميم وتطوير موقع ويب ديناميكي لعرض الشركة.",
-        "education.label":"05 / التعليم","education.title":"مساري","education.title2":"الأكاديمي.",
-        "education.degree":"دورة هندسة — Big Data & AI","education.school":"ENSIASD تارودانت · AI & Big Data",
-        "education.dut":"DUT — هندسة المعلوماتية","education.est":"EST أكادير · ميزة حسن",
-        "contact.label":"06 / التواصل","contact.title":"لنبنِ شيئًا","contact.title2":"ذكيًا.",
-        "contact.description":"أبحث حاليًا عن فرصة PFE وفرص مهنية مستقبلية في علوم البيانات والبيانات الضخمة والذكاء الاصطناعي.",
-        "contact.email":"البريد الإلكتروني","contact.linkedin":"LinkedIn","contact.github":"GitHub",
-        "footer":"© 2026 Loubna Amellachou · علوم البيانات · Big Data · الذكاء الاصطناعي"
-    },
-    tz:{
-        "nav.about":"ⴰⵅⴼ ⵉⵏⵓ","nav.projects":"ⵉⵙⵏⴼⴰⵔⵏ","nav.skills":"ⵜⵉⵎⵙⵙⵉⵔⵉⵏ","nav.experience":"ⵜⵉⵔⴰⵔⴰ","nav.education":"ⵜⵉⵙⵙⵏⴰ","nav.contact":"ⵏⵏⴰⵏⵏ",
-        "hero.status":"ⵓⵔ ⵜⵉⵍⵉ ⵏ ⵜⵉⵏⵙⵉⵡⵉⵏ ⵏ PFE ⴷ ⵜⵉⵔⴰⵔⴰ","hero.intro":"ⵜⴰⵎⵔⴰⵔⵜ ⵏ ⵓⵏⵊⵉⵔ ⵜⵙⵙⵏ ⵉ",
-        "hero.description":"ⵔⵉⵖ ⴰⴷ ⵙⵙⵏⴼⵍⵖ ⵉⵙⵏⴼⴰⵔⵏ ⵉⵙⵏⴰⵏ ⵉ ⵓⵙⵙⵏ ⵏ ⵉⵙⴼⴽⴰ.",
-        "hero.explore":"ⵙⵙⵏ ⵉⵙⵏⴼⴰⵔⵏ ⵉⵏⵓ","hero.cv":"ⴰⵙⵙⵔⵙ ⵏ CV",
-        "about.label":"01 / ⴰⵅⴼ ⵉⵏⵓ","about.title":"ⵉⵙⴼⴽⴰ ⴷ ⵜⵉⵎⴰⵙ","about.title2":"ⴷ ⵜⵙⵏⴰ.",
-        "about.p1":"ⵏⴽⴽ ⴷ Loubna Amellachou, ⵜⴰⵎⵔⴰⵔⵜ ⵏ ⵓⵏⵊⵉⵔ ⴳ Big Data, Data Science ⴷ Artificial Intelligence.",
-        "about.p2":"ⵜⵜⵉⵍⵉ ⵜⵉⵏⵙⵉⵡⵉⵏ ⵉⵏⵓ ⴳ ⵓⵙⵎⵙⵔⵙ ⵏ ⵉⵙⴼⴽⴰ, Machine Learning, Deep Learning ⴷ Big Data.",
-        "about.p3":"ⵔⵉⵖ ⴰⴷ ⵔⵔⵖ ⵉⵎⵙⵍⴰⵏ ⵉⵎⵇⵔⴰⵏⵏ ⵖⵔ ⵉⵙⵏⴼⴰⵔⵏ ⵉⵎⵣⵉⵣⵣⵍⵏ.",
-        "about.profile":"ⴰⵙⵏⵏⵓⴱⴳ ⵏ ⵓⵎⴷⴰⵏ","about.field":"ⴰⵎⵎⵓⵙ","about.education":"ⵜⵉⵙⵙⵏⴰ","about.focus":"ⴰⵙⵙⵏⴼⵍ","about.location":"ⴰⴷⵔⴰⵔ",
-        "projects.label":"02 / ⵉⵙⵏⴼⴰⵔⵏ","projects.title":"ⵉⵙⵏⴼⴰⵔⵏ","projects.title2":"ⵉⵎⵇⵔⴰⵏⵏ.",
-        "project.netpulse.subtitle":"Predictive Network Intelligence","project.netpulse.description":"ⵜⵉⵏⵙⵉⵡⵉⵏ ⵏ ⵓⵙⵏⵓⴱⴳ ⵏ ⵓⵣⴷⴷⵓⵢ.",
-        "project.recipe.subtitle":"Intelligent Recommendation","project.recipe.description":"ⴰⵙⵏⵓⴱⴳ ⵏ ⵉⵙⵔⵓⵙⵏ ⵙ K-Means ⴷ Random Forest.",
-        "project.face.subtitle":"AI & Biometric Security","project.face.description":"ⴰⵙⵏⴼⵍ ⵏ Deep Learning ⵉ ⵓⵙⵏⵏⴰⵏ ⵏ ⵜⵉⵔⴰⵔⴰ.",
-        "skills.label":"03 / ⵜⵉⵎⵙⵙⵉⵔⵉⵏ","skills.title":"ⵜⵉⵎⵙⵙⵉⵔⵉⵏ","skills.title2":"ⵉⵏⵏⴰⵡⵏ.",
-        "experience.label":"04 / ⵜⵉⵔⴰⵔⴰ","experience.title":"ⴰⵎⴰ","experience.title2":"ⵙⵙⵏⴰⵖ.",
-        "experience.ahdigital":"ⴰⵎⵏⵉ ⴳ NETPulse AI ⵉ ⵓⵙⵏⵓⴱⴳ ⵏ ⵓⵣⴷⴷⵓⵢ.","experience.allolead":"ⴰⵙⵏⴼⵍ ⴷ ⵓⵙⵏⵏⴰⵏ ⵏ CRM ⵏ ⵜⵊⵔⴰ ⵜⵏⵜⵉⵍⵜ.","experience.netalek":"ⴰⵙⵏⴼⵍ ⵏ ⵓⵙⵏⵓⴱⴳ ⵙ chatbot ⴷ API.","experience.rizk":"ⴰⵙⵏⴰ ⴷ ⵓⵙⵏⴼⵍ ⵏ ⵓⵙⵏⵓⴱⴳ.",
-        "education.label":"05 / ⵜⵉⵙⵙⵏⴰ","education.title":"ⴰⵔⵔⴰⵙ","education.title2":"ⴰⵙⵙⵏⴰⵏ.","education.degree":"ⴰⵔⵔⴰⵙ ⵏ ⵓⵏⵊⵉⵔ — Big Data & AI","education.school":"ENSIASD Taroudant · AI & Big Data","education.dut":"DUT — Computer Engineering","education.est":"EST Agadir",
-        "contact.label":"06 / ⵏⵏⴰⵏⵏ","contact.title":"ⵏⵙⵙⵏⴼⵍ ⵜⵉⵔⴰⵔⴰ","contact.title2":"ⵉⵎⵣⵉⵣⵣⵍⵏ.","contact.description":"ⵔⵉⵖ ⵜⵉⵏⵙⵉⵡⵉⵏ ⵏ PFE ⴳ Data Science, Big Data ⴷ Artificial Intelligence.","contact.email":"Email","contact.linkedin":"LinkedIn","contact.github":"GitHub","footer":"© 2026 Loubna Amellachou · Data Science · Big Data · AI"
-    }
+  fr: {
+    "nav.about":"À propos","nav.projects":"Projets","nav.skills":"Compétences","nav.experience":"Expérience","nav.education":"Formation","nav.contact":"Contact",
+    "hero.status":"Ouverte aux opportunités de PFE et de carrière","hero.explore":"Découvrir mes projets","hero.cv":"Télécharger mon CV",
+    "about.label":"01 / À PROPOS","projects.label":"02 / PROJETS SÉLECTIONNÉS","skills.label":"03 / COMPÉTENCES","experience.label":"04 / EXPÉRIENCE","education.label":"05 / FORMATION","contact.label":"06 / CONTACT",
+    "about.title":"Données, intelligence","about.title2":"& curiosité.","about.profile":"PROFIL EN BREF","about.field":"Domaine","about.education":"Formation","about.focus":"Orientation","about.location":"Localisation",
+    "about.p1":"Je suis Loubna Amellachou, étudiante ingénieure spécialisée en Big Data, Data Science et Intelligence Artificielle.",
+    "about.p2":"Mes centres d’intérêt se situent à l’intersection de l’analyse de données, du Machine Learning, du Deep Learning et des technologies Big Data.",
+    "about.p3":"J’aime transformer des problèmes complexes en solutions pratiques et compréhensibles — du prétraitement des données au développement de modèles et d’applications interactives.",
+    "projects.title":"Des projets","projects.title2":"qui ont du sens.","project.netpulse.subtitle":"Intelligence prédictive des réseaux","project.recipe.subtitle":"Recommandation intelligente","project.face.subtitle":"IA & sécurité biométrique",
+    "project.netpulse.description":"Plateforme intelligente de supervision réseau conçue pour détecter les anomalies et anticiper les incidents potentiels.",
+    "project.recipe.description":"Système de recommandation de recettes combinant K-Means et Random Forest avec une interface interactive.",
+    "project.face.description":"Solution de Deep Learning pour détecter les attaques de présentation avec Swin Transformer et Transfer Learning.",
+    "skills.title":"Ma boîte à outils","skills.title2":"technique.","experience.title":"Mon expérience","experience.title2":"professionnelle.",
+    "education.title":"Mon parcours","education.title2":"académique.","education.degree":"Cycle ingénieur — Big Data & AI","education.school":"ENSIASD Taroudant · AI & Big Data","education.dut":"DUT — Génie Informatique","education.est":"EST Agadir · Mention Bien",
+    "contact.title":"Construisons quelque chose de","contact.title2":"intelligent.","contact.email":"Email","contact.linkedin":"LinkedIn","contact.github":"GitHub",
+    "contact.description":"Je suis actuellement à la recherche d’une opportunité de PFE et de futures opportunités professionnelles en Data Science, Big Data et Intelligence Artificielle.",
+    "footer":"© 2026 Loubna Amellachou · Data Science · Big Data · AI"
+  },
+  en: {
+    "nav.about":"About","nav.projects":"Projects","nav.skills":"Skills","nav.experience":"Experience","nav.education":"Education","nav.contact":"Contact",
+    "hero.status":"Open to PFE & career opportunities","hero.explore":"Explore my work","hero.cv":"Download CV",
+    "about.label":"01 / ABOUT","projects.label":"02 / SELECTED WORK","skills.label":"03 / TOOLKIT","experience.label":"04 / EXPERIENCE","education.label":"05 / EDUCATION","contact.label":"06 / CONTACT",
+    "about.title":"Data, intelligence","about.title2":"& curiosity.","about.profile":"QUICK PROFILE","about.field":"Field","about.education":"Education","about.focus":"Focus","about.location":"Location",
+    "about.p1":"I'm Loubna Amellachou, an engineering student specializing in Big Data, Data Science and Artificial Intelligence.",
+    "about.p2":"My interests sit at the intersection of data analysis, machine learning, deep learning and big data technologies.",
+    "about.p3":"I enjoy turning complex problems into practical and understandable solutions — from data preprocessing and model development to interactive applications.",
+    "projects.title":"Projects","projects.title2":"that matter.","project.netpulse.subtitle":"Predictive Network Intelligence","project.recipe.subtitle":"Intelligent Recommendation","project.face.subtitle":"AI & Biometric Security",
+    "project.netpulse.description":"AI-powered network monitoring platform designed to detect anomalies and anticipate potential network incidents.",
+    "project.recipe.description":"Recipe recommendation system combining K-Means and Random Forest with an interactive interface.",
+    "project.face.description":"Deep learning solution for detecting presentation attacks using a Swin Transformer and transfer learning.",
+    "skills.title":"My technical","skills.title2":"toolkit.","experience.title":"Where I've","experience.title2":"worked.",
+    "education.title":"Academic","education.title2":"journey.","education.degree":"Engineering Degree — Big Data & AI","education.school":"ENSIASD Taroudant · AI & Big Data","education.dut":"DUT — Computer Engineering","education.est":"EST Agadir · Mention Bien",
+    "contact.title":"Let's build something","contact.title2":"intelligent.","contact.email":"Email","contact.linkedin":"LinkedIn","contact.github":"GitHub",
+    "contact.description":"I'm currently looking for a PFE opportunity and future career opportunities in Data Science, Big Data and Artificial Intelligence.",
+    "footer":"© 2026 Loubna Amellachou · Data Science · Big Data · AI"
+  },
+  ar: {
+    "nav.about":"نبذة عني","nav.projects":"المشاريع","nav.skills":"المهارات","nav.experience":"الخبرة","nav.education":"التعليم","nav.contact":"تواصل معي",
+    "hero.status":"متاحة لفرص التدريب والعمل","hero.explore":"اكتشف مشاريعي","hero.cv":"تحميل السيرة الذاتية",
+    "about.label":"01 / نبذة عني","projects.label":"02 / المشاريع المختارة","skills.label":"03 / المهارات","experience.label":"04 / الخبرة","education.label":"05 / التعليم","contact.label":"06 / التواصل",
+    "about.title":"البيانات والذكاء","about.title2":"والفضول.","about.profile":"نبذة سريعة","about.field":"المجال","about.education":"التعليم","about.focus":"التخصص","about.location":"الموقع",
+    "about.p1":"أنا لبنى أملاشو، طالبة مهندسة متخصصة في Big Data وعلوم البيانات والذكاء الاصطناعي.",
+    "about.p2":"تتركز اهتماماتي في تحليل البيانات والتعلم الآلي والتعلم العميق وتقنيات البيانات الضخمة.",
+    "about.p3":"أستمتع بتحويل المشكلات المعقدة إلى حلول عملية ومفهومة، من معالجة البيانات وتطوير النماذج إلى التطبيقات التفاعلية.",
+    "projects.title":"مشاريع","projects.title2":"ذات قيمة.","project.netpulse.subtitle":"الذكاء التنبؤي للشبكات","project.recipe.subtitle":"التوصية الذكية","project.face.subtitle":"الذكاء الاصطناعي والأمن البيومتري",
+    "project.netpulse.description":"منصة ذكية لمراقبة الشبكات تهدف إلى اكتشاف الحالات الشاذة والتنبؤ بالحوادث المحتملة.",
+    "project.recipe.description":"نظام لتوصية الوصفات يجمع بين K-Means وRandom Forest مع واجهة تفاعلية.",
+    "project.face.description":"حل يعتمد على التعلم العميق لاكتشاف هجمات العرض باستخدام Swin Transformer وTransfer Learning.",
+    "skills.title":"أدواتي","skills.title2":"التقنية.","experience.title":"خبرتي","experience.title2":"المهنية.",
+    "education.title":"مساري","education.title2":"الأكاديمي.","education.degree":"دورة هندسة — Big Data & AI","education.school":"ENSIASD تارودانت · AI & Big Data","education.dut":"DUT — هندسة المعلوماتية","education.est":"EST أكادير",
+    "contact.title":"لنبنِ شيئًا","contact.title2":"ذكيًا.","contact.email":"البريد الإلكتروني","contact.linkedin":"LinkedIn","contact.github":"GitHub",
+    "contact.description":"أبحث حاليًا عن فرصة PFE وفرص مهنية مستقبلية في علوم البيانات والبيانات الضخمة والذكاء الاصطناعي.",
+    "footer":"© 2026 Loubna Amellachou · علوم البيانات · Big Data · الذكاء الاصطناعي"
+  },
+  tz: {
+    "nav.about":"ⴰⵅⴼ ⵉⵏⵓ","nav.projects":"ⵉⵙⵏⴼⴰⵔⵏ","nav.skills":"ⵜⵉⵎⵙⵙⵉⵔⵉⵏ","nav.experience":"ⵜⵉⵔⴰⵔⴰ","nav.education":"ⵜⵉⵙⵙⵏⴰ","nav.contact":"ⵏⵏⴰⵏⵏ",
+    "hero.status":"ⵓⵔ ⵜⵉⵍⵉ ⵏ ⵜⵉⵏⵙⵉⵡⵉⵏ ⵏ PFE","hero.explore":"ⵙⵙⵏ ⵉⵙⵏⴼⴰⵔⵏ ⵉⵏⵓ","hero.cv":"ⴰⵙⵙⵔⵙ ⵏ CV",
+    "about.label":"01 / ⴰⵅⴼ ⵉⵏⵓ","projects.label":"02 / ⵉⵙⵏⴼⴰⵔⵏ","skills.label":"03 / ⵜⵉⵎⵙⵙⵉⵔⵉⵏ","experience.label":"04 / ⵜⵉⵔⴰⵔⴰ","education.label":"05 / ⵜⵉⵙⵙⵏⴰ","contact.label":"06 / ⵏⵏⴰⵏⵏ",
+    "about.title":"ⵉⵙⴼⴽⴰ ⴷ ⵜⵉⵎⴰⵙ","about.title2":"ⴷ ⵜⵙⵏⴰ.","about.profile":"ⴰⵙⵏⵏⵓⴱⴳ","about.field":"ⴰⵎⵎⵓⵙ","about.education":"ⵜⵉⵙⵙⵏⴰ","about.focus":"ⴰⵙⵙⵏⴼⵍ","about.location":"ⴰⴷⵔⴰⵔ",
+    "projects.title":"ⵉⵙⵏⴼⴰⵔⵏ","projects.title2":"ⵉⵎⵇⵔⴰⵏⵏ.","skills.title":"ⵜⵉⵎⵙⵙⵉⵔⵉⵏ","skills.title2":"ⵉⵏⵏⴰⵡⵏ.","experience.title":"ⴰⵎⴰ","experience.title2":"ⵙⵙⵏⴰⵖ.","education.title":"ⴰⵔⵔⴰⵙ","education.title2":"ⴰⵙⵙⵏⴰⵏ.","contact.title":"ⵏⵙⵙⵏⴼⵍ","contact.title2":"ⵉⵎⵣⵉⵣⵣⵍⵏ."
+  }
 };
 
-let currentLanguage = localStorage.getItem("portfolioLanguage") || "en";
+const typingWords={
+  fr:["Data Science.","Big Data.","Intelligence Artificielle.","Machine Learning."],
+  en:["Data Science.","Big Data.","Artificial Intelligence.","Machine Learning."],
+  ar:["علوم البيانات.","البيانات الضخمة.","الذكاء الاصطناعي.","التعلم الآلي."],
+  tz:["Data Science.","Big Data.","Artificial Intelligence.","Machine Learning."]
+};
+
+let currentLanguage=localStorage.getItem("portfolioLanguage")||"en";
+let activeWords=typingWords[currentLanguage]||typingWords.en;
+let wordIndex=0,charIndex=0,deleting=false;
+
+const typing=document.getElementById("typing");
+const languageSelect=document.getElementById("languageSelect");
 
 function applyLanguage(lang){
-    if(!translations[lang]) lang="en";
-    currentLanguage=lang;
+  if(!translations[lang]) lang="en";
+  currentLanguage=lang;
+  document.documentElement.lang=lang==="tz"?"zgh":lang;
+  document.documentElement.dir=lang==="ar"?"rtl":"ltr";
 
-    document.documentElement.lang=(lang==="tz" ? "zgh" : lang);
-    document.documentElement.dir=(lang==="ar" ? "rtl" : "ltr");
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.dataset.i18n;
+    if(translations[lang][key]!==undefined) el.textContent=translations[lang][key];
+  });
 
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-        const key=el.dataset.i18n;
-        if(translations[lang][key] !== undefined){
-            el.textContent=translations[lang][key];
-        }
-    });
-
-    activeWords=typingWords[lang] || typingWords.en;
-    wordIndex=0;
-    charIndex=0;
-    deleting=false;
-    if(typingElement) typingElement.textContent="";
-
-    const select=document.getElementById("languageSelect");
-    if(select) select.value=lang;
-
-    localStorage.setItem("portfolioLanguage",lang);
+  activeWords=typingWords[lang]||typingWords.en;
+  wordIndex=0; charIndex=0; deleting=false;
+  if(typing) typing.textContent="";
+  if(languageSelect) languageSelect.value=lang;
+  localStorage.setItem("portfolioLanguage",lang);
 }
 
-const languageSelect=document.getElementById("languageSelect");
-if(languageSelect){
-    languageSelect.addEventListener("change",()=>applyLanguage(languageSelect.value));
+function typeWord(){
+  if(!typing) return;
+  const word=activeWords[wordIndex];
+  if(!deleting){
+    typing.textContent=word.substring(0,charIndex+1);
+    charIndex++;
+    if(charIndex===word.length){
+      deleting=true;
+      setTimeout(typeWord,1500);
+      return;
+    }
+  }else{
+    typing.textContent=word.substring(0,charIndex-1);
+    charIndex--;
+    if(charIndex===0){
+      deleting=false;
+      wordIndex=(wordIndex+1)%activeWords.length;
+    }
+  }
+  setTimeout(typeWord,deleting?45:75);
 }
-
-applyLanguage(currentLanguage);
-type();
 
 
 /* =========================
-   NAVBAR
+   MENU
 ========================= */
+const menuToggle=document.getElementById("menuToggle");
+const mobileMenu=document.getElementById("mobileMenu");
 
+function closeMenu(){
+  if(!menuToggle||!mobileMenu) return;
+  mobileMenu.classList.remove("open");
+  menuToggle.classList.remove("active");
+  menuToggle.setAttribute("aria-expanded","false");
+  mobileMenu.setAttribute("aria-hidden","true");
+}
+
+if(menuToggle){
+  menuToggle.addEventListener("click",()=>{
+    const open=!mobileMenu.classList.contains("open");
+    mobileMenu.classList.toggle("open",open);
+    menuToggle.classList.toggle("active",open);
+    menuToggle.setAttribute("aria-expanded",String(open));
+    mobileMenu.setAttribute("aria-hidden",String(!open));
+  });
+}
+document.querySelectorAll(".mobile-menu a").forEach(a=>a.addEventListener("click",closeMenu));
+
+
+/* =========================
+   LANGUAGE
+========================= */
+if(languageSelect) languageSelect.addEventListener("change",e=>applyLanguage(e.target.value));
+
+
+/* =========================
+   SCROLL REVEAL + NAVBAR
+========================= */
 const navbar=document.getElementById("navbar");
-
 window.addEventListener("scroll",()=>{
-    if(window.scrollY > 30) navbar.classList.add("scrolled");
-    else navbar.classList.remove("scrolled");
+  if(navbar) navbar.classList.toggle("scrolled",window.scrollY>30);
 });
 
-
-/* =========================
-   SCROLL REVEAL
-========================= */
-
 const reveals=document.querySelectorAll(".reveal");
-
-const observer=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-        if(entry.isIntersecting){
-            entry.target.classList.add("active");
-            observer.unobserve(entry.target);
-        }
-    });
+const revealObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("active");
+      revealObserver.unobserve(entry.target);
+    }
+  });
 },{threshold:.12});
-
-reveals.forEach(element=>observer.observe(element));
+reveals.forEach(el=>revealObserver.observe(el));
 
 
 /* =========================
    PROJECT EXPLORER
 ========================= */
-
 const projectData={
-    netpulse:{
-        kicker:"01 — FEATURED",
-        title:"NETPulse AI",
-        subtitle:"Predictive Network Intelligence",
-        problem:"Network anomalies",
-        approach:"Anomaly Detection",
-        role:"AI / Full Stack",
-        stack:"Python · Machine Learning · API",
-        description:"NETPulse AI is an intelligent network supervision platform designed to detect anomalies and anticipate potential network incidents. The project combines data processing, machine learning and network-oriented analysis.",
-        tags:["Python","Machine Learning","Network","Anomaly Detection"],
-        link:"https://github.com/LoubnaAm"
+  netpulse:{
+    title:"NETPulse AI",
+    subtitle:{en:"Predictive Network Intelligence",fr:"Intelligence prédictive des réseaux",ar:"الذكاء التنبؤي للشبكات",tz:"Predictive Network Intelligence"},
+    problem:"Network anomalies",approach:"Anomaly Detection",role:"AI / Full Stack",stack:"Python · Machine Learning · API",
+    description:{
+      en:"NETPulse AI is an intelligent network supervision platform designed to detect anomalies and anticipate potential network incidents.",
+      fr:"NETPulse AI est une plateforme intelligente de supervision réseau conçue pour détecter les anomalies et anticiper les incidents potentiels.",
+      ar:"NETPulse AI هي منصة ذكية لمراقبة الشبكات تهدف إلى اكتشاف الحالات الشاذة والتنبؤ بالحوادث المحتملة.",
+      tz:"NETPulse AI is an intelligent network supervision platform designed to detect anomalies."
     },
-    recipemind:{
-        kicker:"02 — PROJECT",
-        title:"RecipeMind",
-        subtitle:"Intelligent Recommendation",
-        problem:"Recipe discovery",
-        approach:"K-Means + Random Forest",
-        role:"Data / ML",
-        stack:"Python · Scikit-learn · Streamlit",
-        description:"RecipeMind is a recipe recommendation system combining K-Means clustering and Random Forest to provide relevant recipe suggestions through an interactive interface.",
-        tags:["Python","Scikit-learn","K-Means","Random Forest","Streamlit"],
-        link:"https://github.com/LoubnaAm"
+    tags:["Python","Machine Learning","Network","Anomaly Detection"],link:"https://github.com/LoubnaAm"
+  },
+  recipemind:{
+    title:"RecipeMind",
+    subtitle:{en:"Intelligent Recommendation",fr:"Recommandation intelligente",ar:"التوصية الذكية",tz:"Intelligent Recommendation"},
+    problem:"Recipe discovery",approach:"K-Means + Random Forest",role:"Data / ML",stack:"Python · Scikit-learn · Streamlit",
+    description:{
+      en:"RecipeMind is a recipe recommendation system combining K-Means and Random Forest through an interactive interface.",
+      fr:"RecipeMind est un système de recommandation de recettes combinant K-Means et Random Forest via une interface interactive.",
+      ar:"RecipeMind هو نظام لتوصية الوصفات يجمع بين K-Means وRandom Forest عبر واجهة تفاعلية.",
+      tz:"RecipeMind is a recipe recommendation system combining K-Means and Random Forest."
     },
-    face:{
-        kicker:"03 — PROJECT",
-        title:"Face AntiSpoofing",
-        subtitle:"AI & Biometric Security",
-        problem:"Presentation attacks",
-        approach:"Swin Transformer",
-        role:"Deep Learning",
-        stack:"PyTorch · Computer Vision",
-        description:"Face AntiSpoofing is a deep learning solution designed to detect presentation attacks using a Swin Transformer and transfer learning strategies.",
-        tags:["PyTorch","Swin Transformer","Deep Learning","FGSM / PGD"],
-        link:"https://github.com/LoubnaAm"
-    }
+    tags:["Python","Scikit-learn","K-Means","Random Forest","Streamlit"],link:"https://github.com/LoubnaAm"
+  },
+  face:{
+    title:"Face AntiSpoofing",
+    subtitle:{en:"AI & Biometric Security",fr:"IA & sécurité biométrique",ar:"الذكاء الاصطناعي والأمن البيومتري",tz:"AI & Biometric Security"},
+    problem:"Presentation attacks",approach:"Swin Transformer",role:"Deep Learning",stack:"PyTorch · Computer Vision",
+    description:{
+      en:"Face AntiSpoofing is a deep learning solution designed to detect presentation attacks using a Swin Transformer.",
+      fr:"Face AntiSpoofing est une solution de Deep Learning destinée à détecter les attaques de présentation avec Swin Transformer.",
+      ar:"Face AntiSpoofing هو حل يعتمد على التعلم العميق لاكتشاف هجمات العرض باستخدام Swin Transformer.",
+      tz:"Face AntiSpoofing is a Deep Learning solution using a Swin Transformer."
+    },
+    tags:["PyTorch","Swin Transformer","Deep Learning","FGSM / PGD"],link:"https://github.com/LoubnaAm"
+  }
 };
 
 const projectDetail=document.getElementById("projectDetail");
 const modalClose=document.getElementById("projectModalClose");
-const modalKicker=document.getElementById("modalKicker");
 const modalTitle=document.getElementById("modalTitle");
 const modalSubtitle=document.getElementById("modalSubtitle");
 const modalProblem=document.getElementById("modalProblem");
@@ -2497,48 +2474,35 @@ const modalTags=document.getElementById("modalTags");
 const modalLink=document.getElementById("modalLink");
 
 function openProject(key){
-    const p=projectData[key];
-    if(!p) return;
-
-    modalKicker.textContent=p.kicker;
-    modalTitle.textContent=p.title;
-    modalSubtitle.textContent=p.subtitle;
-    modalProblem.textContent=p.problem;
-    modalApproach.textContent=p.approach;
-    modalRole.textContent=p.role;
-    modalStack.textContent=p.stack;
-    modalDescription.textContent=p.description;
-    modalLink.href=p.link;
-    modalTags.innerHTML=p.tags.map(tag=>`<span>${tag}</span>`).join("");
-
-    projectDetail.classList.add("open");
-    projectDetail.setAttribute("aria-hidden","false");
-    document.body.style.overflow="hidden";
+  const p=projectData[key];
+  if(!p||!projectDetail) return;
+  modalTitle.textContent=p.title;
+  modalSubtitle.textContent=p.subtitle[currentLanguage]||p.subtitle.en;
+  modalProblem.textContent=p.problem;
+  modalApproach.textContent=p.approach;
+  modalRole.textContent=p.role;
+  modalStack.textContent=p.stack;
+  modalDescription.textContent=p.description[currentLanguage]||p.description.en;
+  modalTags.innerHTML=p.tags.map(t=>`<span>${t}</span>`).join("");
+  modalLink.href=p.link;
+  projectDetail.classList.add("open");
+  document.body.style.overflow="hidden";
 }
-
 function closeProject(){
-    projectDetail.classList.remove("open");
-    projectDetail.setAttribute("aria-hidden","true");
-    document.body.style.overflow="";
+  if(!projectDetail) return;
+  projectDetail.classList.remove("open");
+  document.body.style.overflow="";
 }
-
 document.querySelectorAll(".project[data-project]").forEach(card=>{
-    card.addEventListener("click",()=>openProject(card.dataset.project));
+  card.addEventListener("click",()=>openProject(card.dataset.project));
 });
-
 if(modalClose) modalClose.addEventListener("click",closeProject);
-
-if(projectDetail){
-    projectDetail.addEventListener("click",e=>{
-        if(e.target===projectDetail) closeProject();
-    });
-}
+if(projectDetail) projectDetail.addEventListener("click",e=>{if(e.target===projectDetail)closeProject();});
 
 
 /* =========================
    LOUBNA'S AI ASSISTANT
 ========================= */
-
 const aiPanel=document.getElementById("aiPanel");
 const aiOpen=document.getElementById("aiOpen");
 const aiClose=document.getElementById("aiClose");
@@ -2547,235 +2511,89 @@ const aiForm=document.getElementById("aiForm");
 const aiInput=document.getElementById("aiInput");
 
 function openAssistant(){
-    if(!aiPanel) return;
-    aiPanel.classList.add("open");
-    aiPanel.setAttribute("aria-hidden","false");
-    setTimeout(()=>aiInput && aiInput.focus(),120);
+  if(!aiPanel) return;
+  aiPanel.classList.add("open");
+  aiPanel.setAttribute("aria-hidden","false");
+  setTimeout(()=>aiInput&&aiInput.focus(),100);
 }
-
 function closeAssistant(){
-    if(!aiPanel) return;
-    aiPanel.classList.remove("open");
-    aiPanel.setAttribute("aria-hidden","true");
+  if(!aiPanel) return;
+  aiPanel.classList.remove("open");
+  aiPanel.setAttribute("aria-hidden","true");
 }
-
 function addMessage(text,type){
-    const div=document.createElement("div");
-    div.className=`ai-msg ${type}`;
-    div.textContent=text;
-    aiMessages.appendChild(div);
-    aiMessages.scrollTop=aiMessages.scrollHeight;
+  const div=document.createElement("div");
+  div.className="ai-msg "+type;
+  div.textContent=text;
+  aiMessages.appendChild(div);
+  aiMessages.scrollTop=aiMessages.scrollHeight;
 }
-
 function assistantReply(question){
-    const q=question
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"");
+  const q=question.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 
-    const isFrench =
-        currentLanguage==="fr" ||
-        q.includes("parle") ||
-        q.includes("projet") ||
-        q.includes("decris") ||
-        q.includes("explique") ||
-        q.includes("reseau") ||
-        q.includes("recette") ||
-        q.includes("visage");
+  const ar=currentLanguage==="ar"||/[\u0600-\u06ff]/.test(question);
+  const fr=currentLanguage==="fr";
 
-    const isArabic =
-        currentLanguage==="ar" ||
-        /[\u0600-\u06ff]/.test(question);
+  if(q.includes("netpulse")||q.includes("network")||q.includes("reseau")||q.includes("anomal")){
+    if(ar) return "NETPulse AI هي منصة ذكية لمراقبة الشبكات، مصممة لاكتشاف الحالات الشاذة والتنبؤ بالحوادث المحتملة. يعتمد المشروع على معالجة البيانات والتعلم الآلي وتحليل الشبكات.";
+    if(fr) return "NETPulse AI est une plateforme intelligente de supervision réseau conçue pour détecter les anomalies et anticiper les incidents potentiels. Le projet combine traitement des données, Machine Learning et analyse réseau.";
+    return "NETPulse AI is an intelligent network supervision platform designed to detect anomalies and anticipate potential network incidents. It combines data processing, Machine Learning and network analysis.";
+  }
 
-    // NETPulse — very specific matching
-    if(
-        q.includes("netpulse") ||
-        q.includes("network monitoring") ||
-        q.includes("network supervision") ||
-        q.includes("anomaly detection") ||
-        q.includes("anomalies") ||
-        q.includes("reseau") ||
-        q.includes("incident")
-    ){
-        if(isArabic){
-            return "NETPulse AI هي منصة ذكية لمراقبة الشبكات، تهدف إلى اكتشاف الحالات الشاذة والتنبؤ بالحوادث المحتملة. يعتمد المشروع على معالجة البيانات والتعلم الآلي وتحليل الشبكات.";
-        }
-        if(isFrench){
-            return "NETPulse AI est une plateforme intelligente de supervision réseau qui vise à détecter les anomalies et à anticiper les incidents potentiels. Le projet combine traitement des données, Machine Learning et analyse orientée réseau.";
-        }
-        return "NETPulse AI is an intelligent network supervision platform designed to detect anomalies and anticipate potential network incidents. It combines data processing, Machine Learning and network-oriented analysis.";
-    }
+  if(q.includes("recipemind")||q.includes("recipe")||q.includes("recette")||q.includes("k-means")){
+    if(ar) return "RecipeMind هو نظام لتوصية الوصفات يجمع بين K-Means وRandom Forest عبر واجهة تفاعلية.";
+    if(fr) return "RecipeMind est un système de recommandation de recettes qui combine K-Means et Random Forest via une interface interactive.";
+    return "RecipeMind is a recipe recommendation system combining K-Means and Random Forest through an interactive interface.";
+  }
 
-    // RecipeMind
-    if(
-        q.includes("recipemind") ||
-        q.includes("recipe") ||
-        q.includes("recette") ||
-        q.includes("k-means") ||
-        q.includes("random forest")
-    ){
-        if(isArabic){
-            return "RecipeMind هو نظام ذكي لتوصية الوصفات، يجمع بين K-Means وRandom Forest لتقديم اقتراحات مناسبة عبر واجهة تفاعلية.";
-        }
-        if(isFrench){
-            return "RecipeMind est un système de recommandation de recettes qui combine K-Means et Random Forest afin de proposer des recettes pertinentes via une interface interactive.";
-        }
-        return "RecipeMind is a recipe recommendation system combining K-Means and Random Forest to provide relevant suggestions through an interactive interface.";
-    }
+  if(q.includes("antispoof")||q.includes("face")||q.includes("swin")||q.includes("biometric")||q.includes("biometrique")){
+    if(ar) return "Face AntiSpoofing هو حل يعتمد على التعلم العميق لاكتشاف هجمات العرض باستخدام Swin Transformer.";
+    if(fr) return "Face AntiSpoofing est une solution de Deep Learning destinée à détecter les attaques de présentation avec Swin Transformer.";
+    return "Face AntiSpoofing is a Deep Learning solution designed to detect presentation attacks using a Swin Transformer.";
+  }
 
-    // Face AntiSpoofing
-    if(
-        q.includes("antispoof") ||
-        q.includes("face") ||
-        q.includes("biometric") ||
-        q.includes("biometrique") ||
-        q.includes("swin") ||
-        q.includes("presentation attack")
-    ){
-        if(isArabic){
-            return "Face AntiSpoofing هو حل يعتمد على التعلم العميق لاكتشاف هجمات العرض باستخدام Swin Transformer وتقنيات Transfer Learning.";
-        }
-        if(isFrench){
-            return "Face AntiSpoofing est une solution de Deep Learning destinée à détecter les attaques de présentation en utilisant Swin Transformer et des techniques de Transfer Learning.";
-        }
-        return "Face AntiSpoofing is a Deep Learning solution designed to detect presentation attacks using a Swin Transformer and transfer learning techniques.";
-    }
+  if(q.includes("skill")||q.includes("competence")||q.includes("tech")||q.includes("stack")){
+    if(ar) return "تشمل مهارات Loubna Python وPandas وNumPy وScikit-learn وPyTorch وDeep Learning وNLP وComputer Vision وHadoop وSpark وSQL وMongoDB وGit وLinux وPower BI.";
+    if(fr) return "Les compétences de Loubna comprennent Python, Pandas, NumPy, Scikit-learn, PyTorch, Deep Learning, NLP, Computer Vision, Hadoop, Spark, SQL, MongoDB, Git, Linux et Power BI.";
+    return "Loubna's toolkit includes Python, Pandas, NumPy, Scikit-learn, PyTorch, Deep Learning, NLP, Computer Vision, Hadoop, Spark, SQL, MongoDB, Git, Linux and Power BI.";
+  }
 
-    // Skills
-    if(
-        q.includes("skill") ||
-        q.includes("skills") ||
-        q.includes("competence") ||
-        q.includes("competences") ||
-        q.includes("technology") ||
-        q.includes("technologie") ||
-        q.includes("stack")
-    ){
-        if(isArabic){
-            return "تشمل مهارات Loubna: Python وPandas وNumPy وScikit-learn وPyTorch وDeep Learning وNLP وComputer Vision وHadoop وSpark وSQL وMongoDB وGit وLinux وPower BI.";
-        }
-        if(isFrench){
-            return "Les compétences de Loubna comprennent Python, Pandas, NumPy, Scikit-learn, PyTorch, Deep Learning, NLP, Computer Vision, Hadoop, Spark, SQL, MongoDB, Git, Linux et Power BI.";
-        }
-        return "Loubna's toolkit includes Python, Pandas, NumPy, Scikit-learn, PyTorch, Deep Learning, NLP, Computer Vision, Hadoop, Spark, SQL, MongoDB, Git, Linux and Power BI.";
-    }
+  if(q.includes("contact")||q.includes("email")||q.includes("linkedin")){
+    if(ar) return "يمكنك التواصل مع Loubna عبر البريد الإلكتروني أو LinkedIn أو GitHub في قسم Contact.";
+    if(fr) return "Vous pouvez contacter Loubna par email, LinkedIn ou GitHub dans la section Contact.";
+    return "You can contact Loubna by email, LinkedIn or GitHub in the Contact section.";
+  }
 
-    // Experience
-    if(
-        q.includes("experience") ||
-        q.includes("expérience") ||
-        q.includes("worked") ||
-        q.includes("work")
-    ){
-        if(isArabic){
-            return "خبرة Loubna تشمل العمل في Applied AI وFull Stack لدى AHdigital، إضافة إلى أدوار Full Stack في Alloleadsolutions وNetalek Services وتطوير الويب في Rizk Equipement.";
-        }
-        if(isFrench){
-            return "Loubna a de l’expérience en Applied AI et Full Stack chez AHdigital, ainsi qu’en Full Stack chez Alloleadsolutions et Netalek Services, et en développement web chez Rizk Equipement.";
-        }
-        return "Loubna's experience includes Applied AI and Full Stack work at AHdigital, Full Stack roles at Alloleadsolutions and Netalek Services, and Web Development at Rizk Equipement.";
-    }
-
-    // Education
-    if(
-        q.includes("education") ||
-        q.includes("study") ||
-        q.includes("studies") ||
-        q.includes("formation") ||
-        q.includes("etude") ||
-        q.includes("étude") ||
-        q.includes("ensiasd")
-    ){
-        if(isArabic){
-            return "تتابع Loubna دراستها في دورة الهندسة في Big Data وAI في ENSIASD Taroudant، وسبق لها الحصول على DUT في هندسة المعلوماتية من EST Agadir.";
-        }
-        if(isFrench){
-            return "Loubna suit actuellement le cycle ingénieur en Big Data & AI à l’ENSIASD Taroudant. Elle a auparavant obtenu un DUT en Génie Informatique à l’EST Agadir.";
-        }
-        return "Loubna is pursuing an Engineering Degree in Big Data & AI at ENSIASD Taroudant and previously completed a DUT in Computer Engineering at EST Agadir.";
-    }
-
-    // Contact
-    if(
-        q.includes("contact") ||
-        q.includes("email") ||
-        q.includes("linkedin") ||
-        q.includes("contacter")
-    ){
-        if(isArabic){
-            return "يمكنك التواصل مع Loubna عبر البريد الإلكتروني أو LinkedIn أو GitHub، كما يمكنك فتح سيرتها الذاتية من قسم Contact.";
-        }
-        if(isFrench){
-            return "Vous pouvez contacter Loubna par email, LinkedIn ou GitHub. Vous pouvez également consulter son CV depuis la section Contact.";
-        }
-        return "You can contact Loubna by email, LinkedIn or GitHub. Her CV is also available in the Contact section.";
-    }
-
-    // About / identity
-    if(
-        q.includes("who") ||
-        q.includes("loubna") ||
-        q.includes("about") ||
-        q.includes("profil") ||
-        q.includes("qui est")
-    ){
-        if(isArabic){
-            return "Loubna Amellachou هي طالبة مهندسة متخصصة في Big Data وعلوم البيانات والذكاء الاصطناعي، وتهتم أيضًا بالتعلم الآلي والتعلم العميق.";
-        }
-        if(isFrench){
-            return "Loubna Amellachou est une étudiante ingénieure spécialisée en Big Data, Data Science et Intelligence Artificielle, avec un intérêt particulier pour le Machine Learning et le Deep Learning.";
-        }
-        return "Loubna Amellachou is an engineering student specializing in Big Data, Data Science and Artificial Intelligence, with a strong interest in Machine Learning and Deep Learning.";
-    }
-
-    if(isArabic){
-        return "جرّب سؤالي عن NETPulse AI أو RecipeMind أو Face AntiSpoofing أو مهارات Loubna أو خبرتها أو تكوينها.";
-    }
-    if(isFrench){
-        return "Vous pouvez me poser une question sur NETPulse AI, RecipeMind, Face AntiSpoofing, les compétences de Loubna, son expérience ou sa formation.";
-    }
-    return "Ask me about NETPulse AI, RecipeMind, Face AntiSpoofing, Loubna's skills, experience or education.";
+  if(ar) return "يمكنني مساعدتك في NETPulse AI وRecipeMind وFace AntiSpoofing ومهارات Loubna وخبرتها ودراستها.";
+  if(fr) return "Je peux vous renseigner sur NETPulse AI, RecipeMind, Face AntiSpoofing, les compétences, l’expérience et la formation de Loubna.";
+  return "Ask me about NETPulse AI, RecipeMind, Face AntiSpoofing, Loubna's skills, experience or education.";
 }
 
 function handleAssistantQuestion(question){
-    const clean=question.trim();
-    if(!clean) return;
-
-    addMessage(clean,"user");
-    aiInput.value="";
-
-    setTimeout(()=>{
-        addMessage(assistantReply(clean),"bot");
-    },180);
+  const clean=question.trim();
+  if(!clean) return;
+  addMessage(clean,"user");
+  aiInput.value="";
+  setTimeout(()=>addMessage(assistantReply(clean),"bot"),150);
 }
 
-if(aiOpen){
-    aiOpen.addEventListener("click",()=>{
-        if(aiPanel.classList.contains("open")) closeAssistant();
-        else openAssistant();
-    });
-}
-
+if(aiOpen) aiOpen.addEventListener("click",()=>aiPanel.classList.contains("open")?closeAssistant():openAssistant());
 if(aiClose) aiClose.addEventListener("click",closeAssistant);
-
-if(aiForm){
-    aiForm.addEventListener("submit",e=>{
-        e.preventDefault();
-        handleAssistantQuestion(aiInput.value);
-    });
-}
-
-document.querySelectorAll(".ai-suggestion").forEach(btn=>{
-    btn.addEventListener("click",()=>handleAssistantQuestion(btn.textContent));
-});
+if(aiForm) aiForm.addEventListener("submit",e=>{e.preventDefault();handleAssistantQuestion(aiInput.value);});
+document.querySelectorAll(".ai-suggestion").forEach(btn=>btn.addEventListener("click",()=>handleAssistantQuestion(btn.textContent)));
 
 document.addEventListener("keydown",e=>{
-    if(e.key==="Escape"){
-        closeProject();
-        closeAssistant();
-    }
+  if(e.key==="Escape"){
+    closeProject();
+    closeAssistant();
+    closeMenu();
+  }
 });
+
+applyLanguage(currentLanguage);
+type();
 </script>
+
 
 
 </body>
