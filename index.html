@@ -278,7 +278,7 @@ nav.scrolled{
     animation:fadeUp .8s .3s ease both;
 }
 
-.btn{
+.btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;
     text-decoration:none;
 
     padding:12px 20px;
@@ -512,7 +512,7 @@ section{
     gap:20px;
 }
 
-.project{
+.project{touch-action:manipulation;-webkit-tap-highlight-color:transparent;
     position:relative;
 
     padding:28px;
@@ -1123,7 +1123,7 @@ html[dir="rtl"] .edu:hover{
     gap:10px;
 }
 
-.ai-assistant-btn{
+.ai-assistant-btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;
     display:inline-flex;
     align-items:center;
     gap:9px;
@@ -1554,16 +1554,16 @@ html[dir="rtl"] .edu:hover{
 .nav-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
 .language-selector{display:flex;align-items:center;gap:6px}
 .language-icon{font-size:15px}
-#languageSelect{appearance:none;-webkit-appearance:none;border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.035);color:var(--text);padding:8px 28px 8px 9px;font:700 10px "DM Sans",sans-serif;cursor:pointer;outline:none}
+#languageSelect{position:relative;z-index:102;touch-action:manipulation;-webkit-tap-highlight-color:transparent;appearance:none;-webkit-appearance:none;border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.035);color:var(--text);padding:8px 28px 8px 9px;font:700 10px "DM Sans",sans-serif;cursor:pointer;outline:none}
 #languageSelect option{background:#0e1622;color:var(--text)}
-.menu-toggle{display:none;width:42px;height:42px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.03);cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.menu-toggle{position:relative;z-index:101;display:none;width:42px;height:42px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.03);cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px}
 .menu-toggle span{width:17px;height:2px;border-radius:2px;background:var(--text);transition:.2s}
 .menu-toggle.active span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .menu-toggle.active span:nth-child(2){opacity:0}
 .menu-toggle.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-.mobile-menu{display:none;max-width:var(--max);margin:0 auto;padding:0 25px 16px}
+.mobile-menu{position:relative;z-index:101;display:none;max-width:var(--max);margin:0 auto;padding:0 25px 16px}
 .mobile-menu.open{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.mobile-menu a{padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.025);color:var(--muted);text-decoration:none;font-size:12px}
+.mobile-menu a{position:relative;z-index:102;touch-action:manipulation;-webkit-tap-highlight-color:transparent;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.025);color:var(--muted);text-decoration:none;font-size:12px}
 .mobile-menu a:hover{color:var(--text);border-color:rgba(98,230,183,.3)}
 .project-arrow{position:absolute;right:20px;top:20px;width:31px;height:31px;display:grid;place-items:center;border:1px solid var(--border);border-radius:50%;color:var(--muted);background:rgba(255,255,255,.02);transition:.25s}
 .project:hover .project-arrow{color:var(--primary);transform:translate(2px,-2px);border-color:rgba(98,230,183,.35)}
@@ -2381,16 +2381,23 @@ function closeMenu(){
   mobileMenu.setAttribute("aria-hidden","true");
 }
 
-if(menuToggle){
-  menuToggle.addEventListener("click",()=>{
+if(menuToggle && mobileMenu){
+  const toggleMobileMenu=(e)=>{
+    e.preventDefault();
+    e.stopPropagation();
     const open=!mobileMenu.classList.contains("open");
     mobileMenu.classList.toggle("open",open);
     menuToggle.classList.toggle("active",open);
     menuToggle.setAttribute("aria-expanded",String(open));
     mobileMenu.setAttribute("aria-hidden",String(!open));
-  });
+  };
+  menuToggle.addEventListener("click",toggleMobileMenu,{passive:false});
+  menuToggle.addEventListener("touchend",toggleMobileMenu,{passive:false});
 }
-document.querySelectorAll(".mobile-menu a").forEach(a=>a.addEventListener("click",closeMenu));
+document.querySelectorAll(".mobile-menu a").forEach(a=>{
+  a.addEventListener("click",closeMenu);
+  a.addEventListener("touchend",closeMenu,{passive:true});
+});
 
 
 /* =========================
