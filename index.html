@@ -2200,7 +2200,7 @@ html[dir="rtl"] .about-grid{direction:rtl}
         </div>
         <p id="modalDescription">AI-powered network monitoring platform designed to detect anomalies and anticipate potential network incidents.</p>
         <div class="modal-tags" id="modalTags"></div>
-        <a class="project-cta" id="modalLink" href="https://github.com/LoubnaAm" target="_blank" rel="noopener">Explore on GitHub →</a>
+        <a class="project-cta" id="modalLink" href="#" aria-disabled="true">Repository private</a>
     </div>
 </div>
 
@@ -2345,7 +2345,7 @@ function applyLanguage(lang){
 }
 
 function typeWord(){
-  if(!typing) return;
+  if(!typing || !activeWords || !activeWords.length) return;
   const word=activeWords[wordIndex];
   if(!deleting){
     typing.textContent=word.substring(0,charIndex+1);
@@ -2433,7 +2433,7 @@ const projectData={
       ar:"NETPulse AI هي منصة ذكية لمراقبة الشبكات تهدف إلى اكتشاف الحالات الشاذة والتنبؤ بالحوادث المحتملة.",
       tz:"NETPulse AI is an intelligent network supervision platform designed to detect anomalies."
     },
-    tags:["Python","Machine Learning","Network","Anomaly Detection"],link:"https://github.com/LoubnaAm"
+    tags:["Python","Machine Learning","Network","Anomaly Detection"],link:null
   },
   recipemind:{
     title:"RecipeMind",
@@ -2445,7 +2445,7 @@ const projectData={
       ar:"RecipeMind هو نظام لتوصية الوصفات يجمع بين K-Means وRandom Forest عبر واجهة تفاعلية.",
       tz:"RecipeMind is a recipe recommendation system combining K-Means and Random Forest."
     },
-    tags:["Python","Scikit-learn","K-Means","Random Forest","Streamlit"],link:"https://github.com/LoubnaAm"
+    tags:["Python","Scikit-learn","K-Means","Random Forest","Streamlit"],link:null
   },
   face:{
     title:"Face AntiSpoofing",
@@ -2457,7 +2457,7 @@ const projectData={
       ar:"Face AntiSpoofing هو حل يعتمد على التعلم العميق لاكتشاف هجمات العرض باستخدام Swin Transformer.",
       tz:"Face AntiSpoofing is a Deep Learning solution using a Swin Transformer."
     },
-    tags:["PyTorch","Swin Transformer","Deep Learning","FGSM / PGD"],link:"https://github.com/LoubnaAm"
+    tags:["PyTorch","Swin Transformer","Deep Learning","FGSM / PGD"],link:null
   }
 };
 
@@ -2484,7 +2484,19 @@ function openProject(key){
   modalStack.textContent=p.stack;
   modalDescription.textContent=p.description[currentLanguage]||p.description.en;
   modalTags.innerHTML=p.tags.map(t=>`<span>${t}</span>`).join("");
-  modalLink.href=p.link;
+  if(p.link){
+    modalLink.href=p.link;
+    modalLink.textContent="Explore on GitHub →";
+    modalLink.removeAttribute("aria-disabled");
+    modalLink.style.pointerEvents="";
+    modalLink.style.opacity="";
+  }else{
+    modalLink.href="#";
+    modalLink.textContent="Repository private";
+    modalLink.setAttribute("aria-disabled","true");
+    modalLink.style.pointerEvents="none";
+    modalLink.style.opacity=".65";
+  }
   projectDetail.classList.add("open");
   document.body.style.overflow="hidden";
 }
@@ -2591,7 +2603,7 @@ document.addEventListener("keydown",e=>{
 });
 
 applyLanguage(currentLanguage);
-type();
+typeWord();
 </script>
 
 
